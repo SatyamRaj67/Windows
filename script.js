@@ -18,11 +18,34 @@ document.getElementById("day-date").innerText = new Date().toLocaleDateString(
 const lockHomeScreen = document.getElementById("lock-home-screen");
 const lockScreen = document.getElementById("lock-screen");
 
+const passwordInput = document.getElementById("password");
+const hint = document.getElementById("hint");
+
 const goToLockScreen = () => {
   lockHomeScreen.classList.add("active");
   lockScreen.classList.add("active");
 };
 
-lockHomeScreen.addEventListener("click", (e) => {
+const goToScreen = () => {
+  lockHomeScreen.classList.remove("active");
+  lockScreen.classList.remove("active");
+};
+
+document.addEventListener("click", (e) => {
   if (!e.target.closest(".card, a")) goToLockScreen();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "PageUp") goToScreen();
+});
+
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (passwordInput.value === "1234") {
+      alert("Unlocked!");
+      passwordInput.value = "";
+    } else {
+      hint.classList.add("active");
+    }
+  }
 });
