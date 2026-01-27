@@ -18,71 +18,206 @@
     <title>Windows Lock Screen</title>
   </head>
   <body>
-    <section>
-      <header>
-        <div class="card">
-          <div class="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-search-icon lucide-search"
-            >
-              <path d="m21 21-4.34-4.34" />
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              />
-            </svg>
+    <section id="lock-screen">
+      <!-- === ABOVE === -->
+      <div class="above">
+        <!-- === LEFT CARD === -->
+        <div class="left">
+          <div class="card">
+            <div class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search-icon lucide-search"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+              </svg>
+            </div>
+            <p>Try Copilot without Bing</p>
           </div>
-          Try Copilot in Bing
         </div>
+        <!-- === CENTER === -->
         <div class="center">
-          <dotlottie-wc
-            src="https://lottie.host/c96fe4c5-ad02-42a3-939e-aa36bd3c1a4f/SSTMsjprmQ.lottie"
-            loop
-          ></dotlottie-wc
-          >Welcome back! Dismiss the Lock Screen to sign in.
+          <div class="box">
+            <div class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-scan-face-icon lucide-scan-face"
+              >
+                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <path d="M9 9h.01" />
+                <path d="M15 9h.01" />
+              </svg>
+            </div>
+            <p>Welcome Back! Dismiss the Lock Screen to Sign In</p>
+            <p
+              class="time"
+              id="time"
+            ></p>
+            <p
+              class="day-date"
+              id="day-date"
+            ></p>
+          </div>
+
+          <!-- === CENTER CARD === -->
+          <div class="card">
+            <div class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search-icon lucide-search"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+              </svg>
+            </div>
+            <p>Try Copilot without Bing</p>
+          </div>
+
+          <div class="fake"></div>
         </div>
-        <div class="card">
-          <div class="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-camera-icon lucide-camera"
-            >
-              <path
-                d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
-              />
-              <circle
-                cx="12"
-                cy="13"
-                r="3"
-              />
-            </svg>
+
+        <!-- === RIGHT CARD === -->
+        <div class="right">
+          <div class="card">
+            <div class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-camera-icon lucide-camera"
+              >
+                <path
+                  d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+                />
+                <circle
+                  cx="12"
+                  cy="13"
+                  r="3"
+                />
+              </svg>
+            </div>
+            <p>Like the image that you see?</p>
           </div>
         </div>
-      </header>
+      </div>
+      <!-- === BELOW === -->
+      <div class="below">
+        <div class="card weather-card">
+          <p class="title">New Delhi</p>
+          <div class="content">
+            <div class="box1">
+              <div class="imgBx">
+                <img
+                  src="rain.svg"
+                  alt="Rain"
+                />
+              </div>
+              <div class="temp">18</div>
+              <div class="degree">°C</div>
+            </div>
+            <div class="box2">
+              <p class="type">Heavy Rain</p>
+              <p class="range">16° / 20°</p>
+            </div>
+          </div>
+          <a class="link">See full broadcast</a>
+        </div>
+        <div class="card market-card">
+          <p class="title">Market</p>
+          <div class="content">
+            <table>
+              <tr>
+                <th>DOW</th>
+                <th>S&P 500</th>
+                <th>NASDAQ</th>
+              </tr>
+              <tr>
+                <td style="--color: var(--green)">+0.59%</td>
+                <td style="--color: var(--green)">+0.69%</td>
+                <td style="--color: var(--red)">-4.29%</td>
+              </tr>
+              <tr>
+                <td>38,335.48</td>
+                <td>4,792.44</td>
+                <td>11,123.45</td>
+              </tr>
+            </table>
+          </div>
+          <a class="link">See more in markets</a>
+        </div>
+        <div class="card">
+          <p class="title">News</p>
+          <div class="content">
+            <ul>
+              <li>Satyam has added new features</li>
+              <li>Satyam has recently created this site</li>
+            </ul>
+          </div>
+          <a href="'https://github.com/SatyamRaj67/Windows" class="link">See my Repository</a>
+        </div>
+        <div class="card">
+          <p class="title">Events near you</p>
+          <div class="content">
+            <div class="box1">
+              <div class="imgBx">
+                <img
+                  src="flavortown.png"
+                  alt="FlavorTown"
+                />
+              </div>
+            </div>
+            <div class="box2">
+              <p class="headline">FLAVORTOWN</p>
+              <p class="details">Enjoy creating and tasting dishes</p>
+            </div>
+          </div>
+          <a href="https://flavortown.hackclub.com/projects/10211" class="link">See the Event</a>
+        </div>
+      </div>
     </section>
-    <!-- <section>
-    </section> -->
   </body>
-  <script
-    src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js"
-    type="module"
-  ></script>
+  <script src="script.js"></script>
 </html>
