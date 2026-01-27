@@ -42,8 +42,10 @@ document.addEventListener("keydown", (e) => {
 passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     if (passwordInput.value === "1234") {
-      alert("Unlocked!");
-      passwordInput.value = "";
+      window.location.href = new URL(
+        "home/index.html",
+        window.location.href,
+      ).href;
     } else {
       hint.classList.add("active");
     }

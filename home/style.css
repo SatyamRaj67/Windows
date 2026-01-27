@@ -1,0 +1,37 @@
+body {
+  background: url(bg.png);
+}
+
+footer {
+  position: fixed;
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(2em) brightness(0.2);
+  bottom: 0;
+  height: 3em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .app-tray{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .app-tray .app{
+    margin: 0.1em;
+    border-radius: 0.5em;
+    border-radius: 0.25em;
+}
+
+footer .app-tray .app:hover{
+    background: var(--border);
+}
+
+footer .app-tray .app img{
+    width: 2.25em;
+    height: 2em;
+    padding: 0.25em;
+}
