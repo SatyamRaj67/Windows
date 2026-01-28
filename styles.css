@@ -66,10 +66,37 @@ input:focus {
   flex-direction: column;
   border-radius: 0.5em;
   min-height: 8em;
+  transform: translate(0, 0);
+  transition: transform var(--animation-time) ease-out;
+  transition-delay: calc(var(--animation-time) * 3);
 }
 
 .above .card:hover {
   background: var(--background);
+}
+
+.greetings{
+  transform: translateY(0);
+  transition: transform var(--animation-time) ease-out;
+  transition-delay: calc(var(--animation-time) * 0);
+}
+
+@starting-style {
+  .left .card {
+    transform: translateX(-100vw);
+  }
+
+  .right .card {
+    transform: translateX(100vw);
+  }
+
+  .center .card {
+    transform: translateY(100vh);
+  }
+
+  .greetings{
+    transform: translateY(-100vh);
+  }
 }
 
 .above .card .icon {
@@ -102,14 +129,37 @@ input:focus {
   justify-content: space-between;
 }
 
+.above .center .time-clip,
+.above .center .day-date-clip {
+  overflow: hidden;
+}
+
 .above .center .time {
   font-size: 6em;
   font-weight: 400;
+  transform: translateY(0);
+  transition: transform var(--animation-time) ease;
+  overflow: hidden;
+}
+
+@starting-style {
+  .above .center .time {
+    transform: translateY(100%);
+  }
 }
 
 .above .center .day-date {
   font-size: 1.5em;
   margin-top: -0.25em;
+  transform: translateY(0);
+  transition: transform var(--animation-time) ease;
+  transition-delay: var(--animation-time);
+}
+
+@starting-style {
+  .above .center .day-date {
+    transform: translateY(100%);
+  }
 }
 
 #lock-home-screen .below {
@@ -124,23 +174,62 @@ input:focus {
   padding: 0.5em 1em;
   backdrop-filter: blur(8em);
   flex: 1;
+  transform: translateX(0);
+  transition: transform var(--animation-time) ease-out;
+  transition-delay: calc(var(--animation-time) * var(--i) / 4);
+  overflow: hidden;
+}
+
+@starting-style {
+  #lock-home-screen .below .card {
+    transform: translateX(100vw);
+  }
+}
+
+.below .card .title-clip {
+  overflow: hidden;
+  height: 1.5em;
 }
 
 .below .card .title {
   font-size: 1em;
   font-weight: 600;
   width: 100%;
+  transition: transform var(--animation-time) ease;
+  transition-delay: calc(var(--animation-time) * 2);
+}
+
+@starting-style {
+  .below .card .title {
+    transform: translateY(100%);
+  }
 }
 
 .below .card .content {
   width: 100%;
   flex: 1;
+  transition: transform var(--animation-time) ease;
+  transition-delay: calc(var(--animation-time) * 2.5);
+}
+
+@starting-style {
+  .below .card .content {
+    transform: translateY(200%);
+  }
 }
 
 .below .card .link {
   color: var(--accent-foreground);
   text-decoration: none;
   font-weight: 500;
+  transition: transform var(--animation-time) ease;
+  transition-delay: calc(var(--animation-time) * 3);
+}
+
+@starting-style {
+  .below .card .link {
+    transform: translateY(200%);
+  }
 }
 
 .card .content {
@@ -239,6 +328,14 @@ input:focus {
   justify-content: space-between;
   align-items: center;
   gap: 0.75em;
+  transform: translateY(0);
+  transition-delay: calc(var(--animation-time) * 3.5);
+}
+
+@starting-style {
+  .system {
+    transform: translateY(100%);
+  }
 }
 
 .system .icon-tray {
@@ -288,11 +385,11 @@ input:focus {
   flex-direction: column;
 }
 
-.container .hint{
+.container .hint {
   display: none;
 }
 
-.container .hint.active{
+.container .hint.active {
   display: block;
   margin-top: -0.5em;
 }

@@ -1,5 +1,9 @@
 body {
-  background: url(bg.png);
+  background: url(../public/bg.png) no-repeat center center fixed;
+}
+
+ul{
+    list-style: none;
 }
 
 footer {

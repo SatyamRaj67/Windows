@@ -36,7 +36,12 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "PageUp") goToScreen();
+  if (e.key === "Enter") goToLockScreen();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "PageUp" || e.key === "ArrowUp" || e.key === "Escape")
+    goToScreen();
 });
 
 passwordInput.addEventListener("keydown", (e) => {

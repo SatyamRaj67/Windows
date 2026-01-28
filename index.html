@@ -11,7 +11,10 @@
       href="favicon.ico"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="global.css">
+    <link
+      rel="stylesheet"
+      href="global.css"
+    />
     <link
       rel="stylesheet"
       href="styles.css"
@@ -20,9 +23,7 @@
   </head>
   <body>
     <!-- LOCK SCREEN HOME PAGE -->
-    <section
-      id="lock-home-screen"
-    >
+    <section id="lock-home-screen">
       <!-- === ABOVE === -->
       <div class="above">
         <!-- === LEFT CARD === -->
@@ -55,37 +56,43 @@
         <!-- === CENTER === -->
         <div class="center">
           <div class="box">
-            <div class="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-scan-face-icon lucide-scan-face"
-              >
-                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                <path d="M9 9h.01" />
-                <path d="M15 9h.01" />
-              </svg>
+            <div class="greetings">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-scan-face-icon lucide-scan-face"
+                >
+                  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                  <path d="M9 9h.01" />
+                  <path d="M15 9h.01" />
+                </svg>
+              </div>
+              <p>Welcome Back! Dismiss the Lock Screen to Sign In</p>
             </div>
-            <p>Welcome Back! Dismiss the Lock Screen to Sign In</p>
-            <p
-              class="time"
-              id="time"
-            ></p>
-            <p
-              class="day-date"
-              id="day-date"
-            ></p>
+            <div class="time-clip">
+              <p
+                class="time"
+                id="time"
+              ></p>
+            </div>
+            <div class="day-date-clip">
+              <p
+                class="day-date"
+                id="day-date"
+              ></p>
+            </div>
           </div>
 
           <!-- === CENTER CARD === -->
@@ -149,8 +156,14 @@
       </div>
       <!-- === BELOW === -->
       <div class="below">
-        <div class="card weather-card">
-          <p class="title">New Delhi</p>
+        <div
+          class="card"
+          style="--i: 1"
+        >
+          <div class="title-clip">
+            <p class="title">New Delhi</p>
+          </div>
+
           <div class="content">
             <div class="box1">
               <div class="imgBx">
@@ -169,8 +182,15 @@
           </div>
           <a class="link">See full broadcast</a>
         </div>
-        <div class="card market-card">
-          <p class="title">Market</p>
+
+        <div
+          class="card"
+          style="--i: 2"
+        >
+          <div class="title-clip">
+            <p class="title">Market</p>
+          </div>
+
           <div class="content">
             <table>
               <tr>
@@ -190,29 +210,43 @@
               </tr>
             </table>
           </div>
+
           <a class="link">See more in markets</a>
         </div>
-        <div class="card">
-          <p class="title">News</p>
+        <div
+          class="card"
+          style="--i: 3"
+        >
+          <div class="title-clip">
+            <p class="title">News</p>
+          </div>
+
           <div class="content">
             <ul>
               <li>Satyam has added new features</li>
               <li>Satyam has recently created this site</li>
             </ul>
           </div>
+
           <a
             href="https://github.com/SatyamRaj67/Windows"
             class="link"
             >See my Repository</a
           >
         </div>
-        <div class="card">
-          <p class="title">Events near you</p>
+        <div
+          class="card"
+          style="--i: 4"
+        >
+          <div class="title-clip">
+            <p class="title">Events near you</p>
+          </div>
+
           <div class="content">
             <div class="box1">
               <div class="imgBx">
                 <img
-                  src="flavortown.png"
+                  src="public/flavortown.png"
                   alt="FlavorTown"
                 />
               </div>
@@ -222,6 +256,7 @@
               <p class="details">Enjoy creating and tasting dishes</p>
             </div>
           </div>
+
           <a
             href="https://flavortown.hackclub.com/projects/10211"
             class="link"
@@ -279,9 +314,7 @@
         </div>
       </div>
     </section>
-    <section
-      id="lock-screen"
-    >
+    <section id="lock-screen">
       <div class="container">
         <div class="pfpBx">
           <img
@@ -296,7 +329,12 @@
           placeholder="PIN"
           id="password"
         />
-        <p class="hint" id="hint">HINT: Password is 1234</p>
+        <p
+          class="hint"
+          id="hint"
+        >
+          HINT: Password is 1234
+        </p>
       </div>
 
       <div class="system">
@@ -310,9 +348,7 @@
           <p class="username">Satyam Raj</p>
         </div>
         <div class="icon-tray">
-          <div class="icon">
-            ENG
-          </div>
+          <div class="icon">ENG</div>
           <div class="icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
