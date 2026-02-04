@@ -1,4 +1,8 @@
-// Set time and date on lock screen
+const Password = "5555";
+
+console.log("Check the javascript file to find the PIN");
+console.log("Don't worry, It is at the first line of the file.");
+
 document.getElementById("time").innerText = new Date().toLocaleTimeString([], {
   hour: "2-digit",
   minute: "2-digit",
@@ -46,13 +50,17 @@ document.addEventListener("keydown", (e) => {
 
 passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    if (passwordInput.value === "1234") {
+    if (passwordInput.value.trim() === Password) {
       window.location.href = new URL(
         "home/index.html",
         window.location.href,
       ).href;
     } else {
       hint.classList.add("active");
+      
+      passwordInput.classList.remove("error");
+      void passwordInput.offsetWidth;
+      passwordInput.classList.add("error");
     }
   }
 });

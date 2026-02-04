@@ -17,19 +17,32 @@
     />
   </head>
   <body>
-    <footer>
-      <ul
-        class="app-tray"
-        id="app-tray"
-      >
-        <li class="app">
-          <img
-            src="../public/windows.svg"
-            alt="windows"
-          />
-        </li>
-      </ul>
-    </footer>
+    <section id="page-transition">
+      <span class="spinner"></span>
+      <h1>Loading...</h1>
+    </section>
+    <section style="display: grid; place-items: center; font-size: 2em">
+      <p style="background: var(--red); padding: 0.5em; border-radius: 0.5em">
+        Warning: This is a work in progress. Some features may not work as
+        intended.
+      </p>
+    </section>
+    <section>
+      <main id="main-grid"></main>
+      <footer>
+        <ul
+          class="app-tray"
+          id="app-tray"
+        >
+          <li class="app">
+            <img
+              src="../public/windows.svg"
+              alt="windows"
+            />
+          </li>
+        </ul>
+      </footer>
+    </section>
   </body>
   <script src="script.js"></script>
 </html>

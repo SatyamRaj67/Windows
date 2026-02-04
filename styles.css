@@ -33,6 +33,29 @@ input:focus {
   border-bottom: 0.2em solid var(--blue);
 }
 
+input.error {
+  border-bottom: 0.2em solid var(--red);
+  animation: jitter 150ms linear;
+}
+
+@keyframes jitter {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-0.5em);
+  }
+  50% {
+    transform: translateX(0.5em);
+  }
+  75% {
+    transform: translateX(-0.5em);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 #lock-home-screen {
   display: flex;
   flex-direction: column;
@@ -75,7 +98,7 @@ input:focus {
   background: var(--background);
 }
 
-.greetings{
+.greetings {
   transform: translateY(0);
   transition: transform var(--animation-time) ease-out;
   transition-delay: calc(var(--animation-time) * 0);
@@ -94,7 +117,7 @@ input:focus {
     transform: translateY(100vh);
   }
 
-  .greetings{
+  .greetings {
     transform: translateY(-100vh);
   }
 }
