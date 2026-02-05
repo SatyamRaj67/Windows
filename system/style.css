@@ -48,19 +48,20 @@ main {
   width: 100%;
   height: calc(100vh - 3em);
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-template-areas:
-    "a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1 o1"
-    "a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2 m2 n2 o2"
-    "a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3 o3"
-    "a4 b4 c4 d4 e4 f4 g4 h4 i4 j4 k4 l4 m4 n4 o4"
-    "a5 b5 c5 d5 e5 f5 g5 h5 i5 j5 k5 l5 m5 n5 o5"
-    "a6 b6 c6 d6 e6 f6 g6 h6 i6 j6 k6 l6 m6 n6 o6"
-    "a7 b7 c7 d7 e7 f7 g7 h7 i7 j7 k7 l7 m7 n7 o7";
+    "a1 b1 c1 d1 e1 f1 g1 h1 i1 j1 k1 l1 m1 n1"
+    "a2 b2 c2 d2 e2 f2 g2 h2 i2 j2 k2 l2 m2 n2"
+    "a3 b3 c3 d3 e3 f3 g3 h3 i3 j3 k3 l3 m3 n3"
+    "a4 b4 c4 d4 e4 f4 g4 h4 i4 j4 k4 l4 m4 n4"
+    "a5 b5 c5 d5 e5 f5 g5 h5 i5 j5 k5 l5 m5 n5"
+    "a6 b6 c6 d6 e6 f6 g6 h6 i6 j6 k6 l6 m6 n6";
+  gap: 0.5em;
+  padding: 0.5em;
 }
 
-.main-grid-item {
+.desktop-grid-item {
   width: 100%;
   height: 100%;
   display: flex;
@@ -68,20 +69,25 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.25em 1em;
   overflow: hidden;
+  padding: 0.25em 0.5em;
+  transition: 0s;
 }
 
-.main-grid-item img {
+.desktop-grid-item.active {
+  background: color-mix(in oklch, var(--foreground) 50%, transparent);
+  border: 2px solid var(--blue);
+}
+
+.desktop-grid-item img {
   display: block;
   width: 65%;
   height: auto;
+  user-select: none;
 }
 
-.main-grid-item p {
+.desktop-grid-item p {
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 0.875em;
 }
 

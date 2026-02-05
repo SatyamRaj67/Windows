@@ -1,7 +1,14 @@
 const Password = "5555";
 
+// ====================
+// ===   PASSWORD HINTS  ===
+// ====================
 console.log("Check the javascript file to find the PIN");
 console.log("Don't worry, It is at the first line of the file.");
+
+// ====================
+// ===   DATE AND TIME      ===
+// ====================
 
 document.getElementById("time").innerText = new Date().toLocaleTimeString([], {
   hour: "2-digit",
@@ -18,7 +25,9 @@ document.getElementById("day-date").innerText = new Date().toLocaleDateString(
   },
 );
 
-// From Lock Home Screen to Lock Screen
+// ====================
+// ===LOCK/ HOME LOCK  ===
+// ====================
 const lockHomeScreen = document.getElementById("lock-home-screen");
 const lockScreen = document.getElementById("lock-screen");
 

@@ -1,90 +1,75 @@
-// Page Transition Logic
+// ====================
+// ===   PAGE TRANSITION  ===
+// ====================
+
 window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 });
 
-// Render app icons in the app tray
-const fragment = document.createDocumentFragment();
-const app_tray = document.getElementById("app-tray");
+// ====================
+// ===   HELPER FUNCTION ===
+// ====================
+async function loadJSON(path) {
+  try {
+    const response = await fetch(path);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error loading JSON from ${path}:`, error);
+    return [];
+  }
+}
 
-app_icons.forEach((app) => {
+// ====================
+// ===      TASKBAR APPS     ===
+// ====================
+
+const Taskbar_App_Fragment = document.createDocumentFragment();
+const Taskbar_App_Tray = document.getElementById("taskbar-app-tray");
+
+const Taskbar_Apps = await loadJSON("data/Taskbar_Apps.json");
+
+Taskbar_Apps.forEach((app) => {
   const li = document.createElement("li");
   li.classList.add("app");
   li.innerHTML = `
     <img src="${app.img_src}" alt="${app.name}" />
     `;
-  fragment.appendChild(li);
+  Taskbar_App_Fragment.appendChild(li);
 });
-app_tray.appendChild(fragment);
+Taskbar_App_Tray.appendChild(Taskbar_App_Fragment);
 
+// ====================
+// ===      DESKTOP ICONS  ===
+// ====================
+const Desktop_Apps = await loadJSON("data/Desktop_Apps.json");
 
-// Main Grid Logic
-const main_grid = document.getElementById("main-grid");
-const grid_fragment = document.createDocumentFragment();
+const Desktop_Grid = document.getElementById("desktop-grid");
+const Desktop_Grid_Fragment = document.createDocumentFragment();
 
-grid_items.forEach((item) => {
+Desktop_Apps.forEach((item) => {
   const div = document.createElement("div");
-  div.classList.add("main-grid-item");
+  div.classList.add("desktop-grid-item");
   div.style.gridArea = item.grid_area;
   div.innerHTML = `
     <img src="${item.img_src}" alt="${item.name}" />
     <p>${item.name}</p>
     `;
-  grid_fragment.appendChild(div);
+  Desktop_Grid_Fragment.appendChild(div);
 });
-main_grid.appendChild(grid_fragment);
+Desktop_Grid.appendChild(Desktop_Grid_Fragment);
 
-// 1. HELPER: Function to fetch JSON data
-async function loadConfig(path) {
-  try {
-    const response = await fetch(path);
-    return await response.json();
-  } catch (error) {
-    console.error(`Failed to load config from ${path}:`, error);
-    return [];
-  }
-}
+// ======================
+// === DESKTOP ICON EVENTS ===
+// ======================
+const Desktop_Icons = document.querySelectorAll(".desktop-grid-item");
 
-// 2. COMPONENT: Render Desktop Icons
-function renderDesktopIcons(apps) {
-  const mainGrid = document.getElementById("main-grid");
-  const fragment = document.createDocumentFragment();
-
-  apps.forEach((item) => {
-    const div = document.createElement("div");
-    div.classList.add("main-grid-item");
-    // This allows specific positioning based on your JSON "grid_area"
-    div.style.gridArea = item.grid_area;
-    div.dataset.appName = item.name; // Useful for click events later
-
-    div.innerHTML = `
-      <img src="${item.img_src}" alt="${item.name}" />
-      <p>${item.name}</p>
-    `;
-    
-    // Add click listener (Placeholder for WindowManager logic)
-    div.addEventListener('dblclick', () => {
-        console.log(`Opening ${item.name}...`);
-    });
-
-    fragment.appendChild(div);
+Desktop_Icons.forEach((icon) => {
+  icon.addEventListener("click", () => {
+    Desktop_Icons.forEach((ic) => ic.classList.remove("active"));
+    icon.classList.add("active");
   });
 
-  mainGrid.appendChild(fragment);
-}
-
-// 3. MAIN: Initialization Logic
-async function initSystem() {
-  // Load the desktop configuration
-  const desktopApps = await loadConfig("./data/Desktop_Apps.json");
-
-  // Render the interface
-  renderDesktopIcons(desktopApps);
-
-  // Handle Page Transition (Remove loading screen)
-  // We do this AFTER data is fetched/rendered so it doesn't pop in
-  document.body.classList.add("loaded");
-}
-
-// Start the system
-initSystem();
+  icon.addEventListener("dblclick", () => {
+    alert(`Opening ${icon.querySelector("p").innerText} LOL!! Currently that's all I got`);
+  });
+});
