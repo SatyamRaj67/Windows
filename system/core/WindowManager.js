@@ -39,6 +39,7 @@ export class WindowManager {
       element: winEl,
       taskbarElement: taskbarItem,
       isTemp: isTemp,
+      controller: winEl._controller,
     });
 
     this.focusWindow(app.id);
@@ -48,6 +49,10 @@ export class WindowManager {
     // === Find Window ===
     const win = this.windows.get(id);
     if (!win) return;
+
+    if (win.controller) {
+      win.controller.abort();
+    }
 
     // === Remove Window DOM ===
     win.element.remove();
@@ -114,7 +119,11 @@ export class WindowManager {
     const win = this.windows.get(id);
     if (!win) return;
 
-    this.toggleWindow(id);
+    if (!win.element.classList.contains("minimized")) {
+      win.element.classList.add("minimized");
+      win.element.classList.remove("active");
+      win.taskbarElement.classList.remove("active");
+    }
   }
 
   // === Windows Generator Functions ===
@@ -159,7 +168,8 @@ export class WindowManager {
       this.minimizeWindow(app.id);
     });
 
-    this.makeDraggable(el, el.querySelector(".title-bar"));
+    const controller = this.makeDraggable(el, el.querySelector(".title-bar"));
+    el._controller = controller;
     return el;
   }
 
@@ -180,21 +190,36 @@ export class WindowManager {
   makeDraggable(el, handle) {
     let isDown = false;
     let offset = [0, 0];
+    const controller = new AbortController();
 
-    handle.addEventListener("mousedown", (e) => {
-      isDown = true;
-      offset = [el.offsetLeft - e.clientX, el.offsetTop - e.clientY];
-    });
+    handle.addEventListener(
+      "mousedown",
+      (e) => {
+        isDown = true;
+        offset = [el.offsetLeft - e.clientX, el.offsetTop - e.clientY];
+      },
+      { signal: controller.signal },
+    );
 
-    document.addEventListener("mouseup", () => {
-      isDown = false;
-    });
+    document.addEventListener(
+      "mouseup",
+      () => {
+        isDown = false;
+      },
+      { signal: controller.signal },
+    );
 
-    document.addEventListener("mousemove", (e) => {
-      if (isDown) {
-        el.style.left = e.clientX + offset[0] + "px";
-        el.style.top = e.clientY + offset[1] + "px";
-      }
-    });
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        if (isDown) {
+          el.style.left = e.clientX + offset[0] + "px";
+          el.style.top = e.clientY + offset[1] + "px";
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return controller;
   }
 }
