@@ -43,8 +43,12 @@ Taskbar_Apps.forEach((app) => {
   li.dataset.name = app.name;
   li.dataset.pinned = "true";
   li.innerHTML = `
-    <img src="${app.img_src}" alt="${app.name}" />
+    <img class="icon" />
     `;
+
+    const img = li.querySelector(".icon");
+    img.src = app.img_src;
+    img.alt = app.name;
 
   li.addEventListener("click", () => {
     if (li.classList.contains("open")) {

@@ -26,7 +26,7 @@ document.getElementById("day-date").innerText = new Date().toLocaleDateString(
 );
 
 // ====================
-// ===LOCK/ HOME LOCK  ===
+// === LOCK/ HOME LOCK  ===
 // ====================
 const lockHomeScreen = document.getElementById("lock-home-screen");
 const lockScreen = document.getElementById("lock-screen");

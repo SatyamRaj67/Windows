@@ -99,6 +99,8 @@ export class WindowManager {
       win.element.classList.remove("minimized");
     } else if (win.element.classList.contains("active")) {
       win.element.classList.add("minimized");
+      win.element.classList.remove("active");
+      win.taskbarElement.classList.remove("active");
     } else {
       this.focusWindow(id);
     }
@@ -138,9 +140,9 @@ export class WindowManager {
             <div class="title-bar">
                 <div class="title">
                 <div class="imgBx">
-                  <img src="${app.img_src}" alt="${app.name}" class="icon">
+                  <img class="icon">
                 </div>
-                    <span>${app.name}</span>
+                    <span class="title-text"></span>
                 </div>
                 <div class="controls">
                     <button class="min"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></button>
@@ -152,6 +154,14 @@ export class WindowManager {
                 <h1>Welcome to ${app.name}</h1>
             </div>
         `;
+
+      // === Set App Icon ===
+    const img = el.querySelector(".icon");
+    img.src = app.img_src;
+    img.alt = app.name;
+
+    el.querySelector(".title-text").textContent = app.name;
+    el.querySelector(".window-content h1").textContent = `Welcome to ${app.name}`;
 
     // === Internal Mouse Events ===
     el.addEventListener("mousedown", () => this.focusWindow(app.id));
