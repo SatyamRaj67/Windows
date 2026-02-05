@@ -1,4 +1,11 @@
 // ====================
+// ===          IMPORTS          ===
+// ====================
+import { WindowManager } from "./core/WindowManager.js";
+
+const wm = new WindowManager();
+
+// ====================
 // ===   PAGE TRANSITION  ===
 // ====================
 
@@ -31,6 +38,7 @@ const Taskbar_Apps = await loadJSON("data/Taskbar_Apps.json");
 Taskbar_Apps.forEach((app) => {
   const li = document.createElement("li");
   li.classList.add("app");
+  li.dataset.name = app.name; 
   li.innerHTML = `
     <img src="${app.img_src}" alt="${app.name}" />
     `;
@@ -70,6 +78,10 @@ Desktop_Icons.forEach((icon) => {
   });
 
   icon.addEventListener("dblclick", () => {
-    alert(`Opening ${icon.querySelector("p").innerText} LOL!! Currently that's all I got`);
+    const appName = icon.querySelector("p").textContent;
+    const imgSrc = icon.querySelector("img").getAttribute("src");
+
+    wm.openWindow({ name: appName, img_src: imgSrc });
   });
 });
+
