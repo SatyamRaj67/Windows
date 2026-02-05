@@ -27,6 +27,9 @@ async function loadJSON(path) {
   }
 }
 
+// Load all installed apps once
+const Installed_Apps = await loadJSON("data/Installed_Apps.json");
+
 // ====================
 // ===      TASKBAR APPS     ===
 // ====================
@@ -34,9 +37,9 @@ async function loadJSON(path) {
 const Taskbar_App_Fragment = document.createDocumentFragment();
 const Taskbar_App_Tray = document.getElementById("taskbar-app-tray");
 
-const Taskbar_Apps = await loadJSON("data/Taskbar_Apps.json");
+Installed_Apps.forEach((app) => {
+  if (!app.pinned) return;
 
-Taskbar_Apps.forEach((app) => {
   const li = document.createElement("li");
   li.classList.add("app");
   li.dataset.id = app.id;
@@ -46,15 +49,20 @@ Taskbar_Apps.forEach((app) => {
     <img class="icon" />
     `;
 
-    const img = li.querySelector(".icon");
-    img.src = app.img_src;
-    img.alt = app.name;
+  const img = li.querySelector(".icon");
+  img.src = app.img_src;
+  img.alt = app.name;
 
   li.addEventListener("click", () => {
     if (li.classList.contains("open")) {
       wm.toggleWindow(app.id);
     } else {
-      wm.openWindow({ id: app.id, name: app.name, img_src: app.img_src });
+      wm.openWindow({
+        id: app.id,
+        name: app.name,
+        img_src: app.img_src,
+        content: app.content || `Welcome to ${app.name}!`,
+      });
     }
   });
 
@@ -65,41 +73,51 @@ Taskbar_App_Tray.appendChild(Taskbar_App_Fragment);
 // ====================
 // ===      DESKTOP ICONS  ===
 // ====================
-const Desktop_Apps = await loadJSON("data/Desktop_Apps.json");
 
 const Desktop_Grid = document.getElementById("desktop-grid");
 const Desktop_Grid_Fragment = document.createDocumentFragment();
 
-Desktop_Apps.forEach((item) => {
-  if (!item.grid_area) return;
+Installed_Apps.forEach((app) => {
+  // Only process apps with a grid_area for the desktop
+  if (!app.grid_area) return;
+
   const div = document.createElement("div");
   div.classList.add("desktop-grid-item");
-  div.style.gridArea = item.grid_area;
-  div.dataset.id = item.id;
-  div.dataset.name = item.name;
+  div.style.gridArea = app.grid_area;
+  div.dataset.id = app.id;
+  div.dataset.name = app.name;
   div.innerHTML = `
-    <img src="${item.img_src}" alt="${item.name}" />
-    <p>${item.name}</p>
+    <img src="${app.img_src}" alt="${app.name}" />
+    <p>${app.name}</p>
     `;
+
+  // Add event listeners directly here since we have the scope of 'app'
+  div.addEventListener("click", () => {
+    document
+      .querySelectorAll(".desktop-grid-item")
+      .forEach((ic) => ic.classList.remove("active"));
+    div.classList.add("active");
+  });
+
+  div.addEventListener("dblclick", () => {
+    wm.openWindow({
+      id: app.id,
+      name: app.name,
+      img_src: app.img_src,
+      content: app.content || `Welcome to ${app.name}!`,
+    });
+  });
+
   Desktop_Grid_Fragment.appendChild(div);
 });
+
 Desktop_Grid.appendChild(Desktop_Grid_Fragment);
 
-// ======================
-// === DESKTOP ICON EVENTS ===
-// ======================
-const Desktop_Icons = document.querySelectorAll(".desktop-grid-item");
-
-Desktop_Icons.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    Desktop_Icons.forEach((ic) => ic.classList.remove("active"));
-    icon.classList.add("active");
-  });
-
-  icon.addEventListener("dblclick", () => {
-    const appName = icon.querySelector("p").textContent;
-    const imgSrc = icon.querySelector("img").getAttribute("src");
-
-    wm.openWindow({ id: icon.dataset.id, name: appName, img_src: imgSrc });
-  });
+// === On Clicking outside desktop icons, remove active state ===
+Desktop_Grid.addEventListener("click", (e) => {
+  if (e.target === Desktop_Grid) {
+    document
+      .querySelectorAll(".desktop-grid-item")
+      .forEach((ic) => ic.classList.remove("active"));
+  }
 });

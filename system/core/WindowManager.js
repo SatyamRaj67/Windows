@@ -131,7 +131,10 @@ export class WindowManager {
   // === Windows Generator Functions ===
   createWindowDOM(app) {
     const el = document.createElement("div");
+
     el.classList.add("window-frame");
+    el.classList.add(app.img_src.includes("Notepad") ? "notepad" : "app");
+
     el.style.left = "100px";
     el.style.top = "50px";
     el.style.width = "400px";
@@ -151,17 +154,16 @@ export class WindowManager {
                 </div>
             </div>
             <div class="window-content">
-                <h1>Welcome to ${app.name}</h1>
+                <p contenteditable="${app.img_src.includes("Notepad") ? "true" : "false"}">${app.content}</p>
             </div>
         `;
 
-      // === Set App Icon ===
+    // === Set App Icon ===
     const img = el.querySelector(".icon");
     img.src = app.img_src;
     img.alt = app.name;
 
     el.querySelector(".title-text").textContent = app.name;
-    el.querySelector(".window-content h1").textContent = `Welcome to ${app.name}`;
 
     // === Internal Mouse Events ===
     el.addEventListener("mousedown", () => this.focusWindow(app.id));

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": "This PC",
+    "img_src": "../public/Computer.ico",
+    "grid_area": "a1",
+    "content": "Welcome to This PC!"
+  },
+  {
+    "id": "2",
+    "name": "VS Code",
+    "img_src": "../public/vscode.svg",
+    "grid_area": "a2",
+    "pinned": true,
+    "content": "Welcome to Visual Studio Code!"
+  },
+  {
+    "id": "3",
+    "name": "Recycle Bin",
+    "img_src": "../public/Trash Empty.ico",
+    "grid_area": "a3",
+    "content": "Welcome to Recycle Bin!"
+  },
+  {
+    "id": "4",
+    "name": "Control Panel",
+    "img_src": "../public/Control Panel.ico",
+    "grid_area": "a4",
+    "content": "Welcome to Control Panel!"
+  },
+  {
+    "id": "5",
+    "name": "Brave",
+    "img_src": "../public/Brave.ico",
+    "grid_area": "b1",
+    "pinned": true,
+    "content": "Welcome to Brave Browser!"
+  },
+  {
+    "id": "6",
+    "name": "Settings",
+    "img_src": "../public/Settings.ico",
+    "pinned": true,
+    "content": "Welcome to Settings!"
+  },
+  {
+    "id": "7",
+    "name": "File Explorer",
+    "img_src": "../public/File Explorer.ico",
+    "pinned": true,
+    "content": "Welcome to File Explorer!"
+  },
+  {
+    "id": "8",
+    "name": "Task Manager",
+    "img_src": "../public/task-manager.png",
+    "pinned": true,
+    "content": "Welcome to Task Manager!"
+  },
+  {
+    "id": "9",
+    "name": "Whatsapp",
+    "img_src": "../public/whatsapp.svg",
+    "pinned": true,
+    "content": "Welcome to Whatsapp!"
+  },
+  {
+    "id": "9999",
+    "name": "DO NOT OPEN.txt",
+    "img_src": "../public/Notepad.png",
+    "grid_area": "b4",
+    "content": "This Project is under construction!! More Puzzles coming soon!!"
+  }
+]

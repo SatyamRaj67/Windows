@@ -78,6 +78,7 @@ main {
   overflow: hidden;
   padding: 0.25em 0.5em;
   transition: 0s;
+  border: 2px solid transparent;
 }
 
 .desktop-grid-item.active {
@@ -135,6 +136,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 2px solid var(--border);
 }
 
 .desktop-container .title-bar .imgBx {
@@ -178,6 +180,15 @@ main {
   cursor: pointer;
 }
 
+.desktop-container .window-content{
+  height: calc(100% - 2em);
+}
+
+.desktop-container .window-content p{
+  height: 100%;
+  outline: none;
+}
+
 footer {
   position: absolute;
   border-top: 1px solid var(--border);
@@ -198,6 +209,7 @@ footer .app-tray {
   align-items: center;
   justify-content: center;
   gap: 0.25em;
+  transition: all 0.3s ease;
 }
 
 footer .app-tray .app {
@@ -243,4 +255,12 @@ footer .app-tray .app img {
   width: 2.125em;
   height: auto;
   padding: 0.25em;
+}
+
+/* ================ */
+/* ===  APP SPECIFIC === */
+/* ================ */
+.notepad .window-content{
+  font-family: "Consolas", monospace;
+  font-size: 1em;
 }
