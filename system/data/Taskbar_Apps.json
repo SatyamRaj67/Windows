@@ -1,25 +1,31 @@
 [
   {
-    "name": "Visual Studio Code",
+    "id": "2",
+    "name": "VS Code",
     "img_src": "../public/vscode.svg"
   },
   {
+    "id": "9",
     "name": "Whatsapp",
     "img_src": "../public/whatsapp.svg"
   },
   {
+    "id": "7",
     "name": "File Explorer",
     "img_src": "../public/File Explorer.ico"
   },
   {
+    "id": "8",
     "name": "Task Manager",
     "img_src": "../public/task-manager.png"
   },
   {
-    "name": "Brave Browser",
+    "id": "5",
+    "name": "Brave",
     "img_src": "../public/Brave.ico"
   },
   {
+    "id": "6",
     "name": "Settings",
     "img_src": "../public/Settings.ico"
   }

@@ -3,6 +3,7 @@
 // ====================
 import { WindowManager } from "./core/WindowManager.js";
 
+// Intializing Window Manager
 const wm = new WindowManager();
 
 // ====================
@@ -38,10 +39,25 @@ const Taskbar_Apps = await loadJSON("data/Taskbar_Apps.json");
 Taskbar_Apps.forEach((app) => {
   const li = document.createElement("li");
   li.classList.add("app");
-  li.dataset.name = app.name; 
+  li.dataset.id = app.id;
+  li.dataset.name = app.name;
+  li.dataset.pinned = "true";
   li.innerHTML = `
-    <img src="${app.img_src}" alt="${app.name}" />
+    <img class="icon" />
     `;
+
+    const img = li.querySelector(".icon");
+    img.src = app.img_src;
+    img.alt = app.name;
+
+  li.addEventListener("click", () => {
+    if (li.classList.contains("open")) {
+      wm.toggleWindow(app.id);
+    } else {
+      wm.openWindow({ id: app.id, name: app.name, img_src: app.img_src });
+    }
+  });
+
   Taskbar_App_Fragment.appendChild(li);
 });
 Taskbar_App_Tray.appendChild(Taskbar_App_Fragment);
@@ -55,9 +71,12 @@ const Desktop_Grid = document.getElementById("desktop-grid");
 const Desktop_Grid_Fragment = document.createDocumentFragment();
 
 Desktop_Apps.forEach((item) => {
+  if (!item.grid_area) return;
   const div = document.createElement("div");
   div.classList.add("desktop-grid-item");
   div.style.gridArea = item.grid_area;
+  div.dataset.id = item.id;
+  div.dataset.name = item.name;
   div.innerHTML = `
     <img src="${item.img_src}" alt="${item.name}" />
     <p>${item.name}</p>
@@ -81,7 +100,6 @@ Desktop_Icons.forEach((icon) => {
     const appName = icon.querySelector("p").textContent;
     const imgSrc = icon.querySelector("img").getAttribute("src");
 
-    wm.openWindow({ name: appName, img_src: imgSrc });
+    wm.openWindow({ id: icon.dataset.id, name: appName, img_src: imgSrc });
   });
 });
-

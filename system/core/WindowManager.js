@@ -1,222 +1,235 @@
 export class WindowManager {
+  // ===   CONSTRUCTOR    ===
+
+  // Windows: [{
+  //  id: string,
+  // name: string,
+  // img_src: string,
+  // }]
   constructor() {
-    this.windows = [];
-    this.activeWindowId = null;
-    this.zIndexCounter = 100;
-    this.desktopContainer = document.getElementById("desktop-container");
-    this.taskbarTray = document.getElementById("taskbar-app-tray");
+    this.windows = new Map();
+    this.zIndex = 100;
+    this.desktop = document.getElementById("desktop-container");
+    this.taskbar = document.getElementById("taskbar-app-tray");
   }
 
-  openWindow(appConfig) {
-    const id = `win-${Date.now()}`;
-
-    const windowEl = this.createWindowDOM(id, appConfig);
-
-    // Check for existing pinned taskbar item
-    const existingTaskbarEl = this.taskbarTray.querySelector(
-      `li[data-name="${appConfig.name}"]`
-    );
-
-    let taskbarEl;
-    let isPinned = false;
-
-    if (existingTaskbarEl) {
-      taskbarEl = existingTaskbarEl;
-      isPinned = true;
-      taskbarEl.classList.add("open");
-    } else {
-      taskbarEl = this.createTaskbarDOM(appConfig);
-      this.taskbarTray.appendChild(taskbarEl);
+  openWindow(app) {
+    if (this.windows.has(app.id)) {
+      this.focusWindow(app.id);
+      return;
     }
 
-    // Create a specific toggle handler for this window instance
-    const toggleHandler = () => {
-      const win = this.windows.find((w) => w.id === id);
-      if (win) {
-        if (win.element.style.display === "none") {
-          this.focusWindow(id);
-        } else if (win.element.classList.contains("active")) {
-          this.minimizeWindow(id);
-        } else {
-          this.focusWindow(id);
-        }
-      }
-    };
+    // === Create Window DOM ===
+    const winEl = this.createWindowDOM(app);
+    this.desktop.appendChild(winEl);
 
-    // Attach the handler
-    taskbarEl.addEventListener("click", toggleHandler);
+    // === Handle Taskbar Icons ===
+    let taskbarItem = this.taskbar.querySelector(`li[data-id="${app.id}"]`);
+    let isTemp = false;
 
-    this.desktopContainer.appendChild(windowEl);
-    
-    this.windows.push({
-      id,
-      ...appConfig,
-      element: windowEl,
-      taskbarElement: taskbarEl,
-      isPinned,
-      toggleHandler, // Store handler reference for removal later
+    if (!taskbarItem) {
+      taskbarItem = this.createTaskbarDOM(app);
+      this.taskbar.appendChild(taskbarItem);
+      isTemp = true;
+    }
+
+    taskbarItem.classList.add("open");
+
+    this.windows.set(app.id, {
+      element: winEl,
+      taskbarElement: taskbarItem,
+      isTemp: isTemp,
+      controller: winEl._controller,
     });
 
-    this.focusWindow(id);
+    this.focusWindow(app.id);
   }
 
   closeWindow(id) {
-    const winIdx = this.windows.findIndex((w) => w.id === id);
-    if (winIdx > -1) {
-      const win = this.windows[winIdx];
+    // === Find Window ===
+    const win = this.windows.get(id);
+    if (!win) return;
 
-      // Cleanup DOM
-      win.element.remove();
-
-      // IMPORTANT: Remove the specific event listener for this window
-      // so clicking the pinned icon later doesn't try to toggle a dead window.
-      win.taskbarElement.removeEventListener("click", win.toggleHandler);
-
-      if (win.isPinned) {
-        // Only remove 'open' class if no other windows use this pinned icon
-        const hasOtherInstances = this.windows.some(
-          (w) => w.taskbarElement === win.taskbarElement && w.id !== id
-        );
-        if (!hasOtherInstances) {
-          win.taskbarElement.classList.remove("open");
-        }
-      } else {
-        // If it was a temp icon, remove it completely
-        win.taskbarElement.remove();
-      }
-
-      this.windows.splice(winIdx, 1);
+    if (win.controller) {
+      win.controller.abort();
     }
+
+    // === Remove Window DOM ===
+    win.element.remove();
+
+    // === Handle Taskbar Icon ===
+    win.taskbarElement.classList.remove("open");
+    win.taskbarElement.classList.remove("active");
+    if (win.isTemp) {
+      win.taskbarElement.remove();
+    }
+
+    // === Remove from Window Manager ===
+    this.windows.delete(id);
   }
 
   focusWindow(id) {
-    const win = this.windows.find((w) => w.id === id);
-    if (win) {
-      this.zIndexCounter++;
-      win.element.style.zIndex = this.zIndexCounter;
-      win.element.style.display = "";
+    const win = this.windows.get(id);
+    if (!win) return;
 
-      this.windows.forEach((w) => w.element.classList.remove("active"));
-      win.element.classList.add("active");
-      this.activeWindowId = id;
+    // === Bring to Front ===
+    this.zIndex++;
+    win.element.style.zIndex = this.zIndex;
+    win.element.style.display = "block";
+
+    // === Visual Indicator of the focused window ===
+    document
+      .querySelectorAll(".window-frame")
+      .forEach((w) => w.classList.remove("active"));
+    win.element.classList.add("active");
+
+    // === Focus Taskbar Icon ===
+    document
+      .querySelectorAll(".app")
+      .forEach((app) => app.classList.remove("active"));
+    win.taskbarElement.classList.add("active");
+  }
+
+  toggleWindow(id) {
+    const win = this.windows.get(id);
+    if (!win) return;
+
+    if (win.element.classList.contains("minimized")) {
+      this.focusWindow(id);
+      win.element.classList.remove("minimized");
+    } else if (win.element.classList.contains("active")) {
+      win.element.classList.add("minimized");
+      win.element.classList.remove("active");
+      win.taskbarElement.classList.remove("active");
+    } else {
+      this.focusWindow(id);
     }
   }
 
   maximizeWindow(id) {
-    const win = this.windows.find((w) => w.id === id);
-    if (win) {
-      win.element.style.left = "0";
-      win.element.style.top = "0";
-      win.element.style.width = "100%";
-      win.element.style.height = "100%";
-    }
+    const win = this.windows.get(id);
+    if (!win) return;
 
-    this.focusWindow(id);
-    this.classList.add("maximized");
+    if (win.element.classList.contains("maximized")) {
+      win.element.classList.remove("maximized");
+    } else {
+      win.element.classList.add("maximized");
+    }
   }
 
   minimizeWindow(id) {
-    const win = this.windows.find((w) => w.id === id);
-    if (win) {
-      win.element.style.display = "none";
+    const win = this.windows.get(id);
+    if (!win) return;
+
+    if (!win.element.classList.contains("minimized")) {
+      win.element.classList.add("minimized");
+      win.element.classList.remove("active");
+      win.taskbarElement.classList.remove("active");
     }
   }
 
-  createWindowDOM(id, config) {
+  // === Windows Generator Functions ===
+  createWindowDOM(app) {
     const el = document.createElement("div");
     el.classList.add("window-frame");
-    el.id = id;
-    el.style.position = "absolute";
     el.style.left = "100px";
     el.style.top = "50px";
-
-    el.addEventListener("mousedown", () => this.focusWindow(id));
-
+    el.style.width = "400px";
+    el.style.height = "300px";
     el.innerHTML = `
             <div class="title-bar">
                 <div class="title">
-                    <img src="${config.img_src}" alt="${config.name}" class="icon">
-                    <span>${config.name}</span>
+                <div class="imgBx">
+                  <img class="icon">
+                </div>
+                    <span class="title-text"></span>
                 </div>
                 <div class="controls">
-                    <button class="btn-min"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></button>
-                    <button class="btn-max"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-icon lucide-square"><rect width="18" height="18" x="3" y="3" rx="2"/></svg></button>
-                    <button class="btn-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                    <button class="min"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></button>
+                    <button class="max"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-icon lucide-square"><rect width="18" height="18" x="3" y="3" rx="2"/></svg></button>
+                    <button class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                 </div>
             </div>
             <div class="window-content">
-                <h1>Welcome to ${config.name}</h1>
+                <h1>Welcome to ${app.name}</h1>
             </div>
         `;
-    el.querySelector(".btn-close").addEventListener("click", (e) => {
-      e.stopPropagation();
-      this.closeWindow(id);
+
+      // === Set App Icon ===
+    const img = el.querySelector(".icon");
+    img.src = app.img_src;
+    img.alt = app.name;
+
+    el.querySelector(".title-text").textContent = app.name;
+    el.querySelector(".window-content h1").textContent = `Welcome to ${app.name}`;
+
+    // === Internal Mouse Events ===
+    el.addEventListener("mousedown", () => this.focusWindow(app.id));
+
+    el.querySelector(".close").addEventListener("click", () => {
+      this.closeWindow(app.id);
     });
 
-    el.querySelector(".btn-max").addEventListener("click", (e) => {
-      e.stopPropagation();
-      this.maximizeWindow(id);
+    el.querySelector(".max").addEventListener("click", () => {
+      this.maximizeWindow(app.id);
     });
 
-    el.querySelector(".btn-min").addEventListener("click", (e) => {
-      e.stopPropagation();
-      this.minimizeWindow(id);
+    el.querySelector(".min").addEventListener("click", () => {
+      this.minimizeWindow(app.id);
     });
 
-    const titleBar = el.querySelector(".title-bar");
-    this.makeDraggable(el, titleBar);
-
+    const controller = this.makeDraggable(el, el.querySelector(".title-bar"));
+    el._controller = controller;
     return el;
   }
 
-  createTaskbarDOM(config) {
+  createTaskbarDOM(app) {
     const li = document.createElement("li");
     li.classList.add("app");
-    li.classList.add("open"); // New items are open by default
-    li.dataset.name = config.name; // Ensure new items also have the name
+    li.dataset.id = app.id;
     li.innerHTML = `
-      <img src="${config.img_src}" alt="${config.name}" />
+      <img src="${app.img_src}" alt="${app.name}" />
     `;
-    // Note: No click listener added here anymore, it's added in openWindow
+    li.addEventListener("click", () => {
+      this.toggleWindow(app.id);
+    });
+
     return li;
   }
 
-  makeDraggable(windowEl, handleEl) {
-    let isDragging = false;
-    let startX, startY, initialX, initialY;
+  makeDraggable(el, handle) {
+    let isDown = false;
+    let offset = [0, 0];
+    const controller = new AbortController();
 
-    handleEl.style.cursor = "default";
+    handle.addEventListener(
+      "mousedown",
+      (e) => {
+        isDown = true;
+        offset = [el.offsetLeft - e.clientX, el.offsetTop - e.clientY];
+      },
+      { signal: controller.signal },
+    );
 
-    const onMouseDown = (e) => {
-      if (e.target.closest(".controls")) return;
+    document.addEventListener(
+      "mouseup",
+      () => {
+        isDown = false;
+      },
+      { signal: controller.signal },
+    );
 
-      isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        if (isDown) {
+          el.style.left = e.clientX + offset[0] + "px";
+          el.style.top = e.clientY + offset[1] + "px";
+        }
+      },
+      { signal: controller.signal },
+    );
 
-      initialX = windowEl.offsetLeft;
-      initialY = windowEl.offsetTop;
-
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
-    };
-
-    const onMouseMove = (e) => {
-      if (!isDragging) return;
-
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-
-      windowEl.style.left = `${initialX + dx}px`;
-      windowEl.style.top = `${initialY + dy}px`;
-    };
-
-    const onMouseUp = () => {
-      isDragging = false;
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
-    };
-
-    handleEl.addEventListener("mousedown", onMouseDown);
+    return controller;
   }
 }
