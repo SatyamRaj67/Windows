@@ -52,7 +52,7 @@ passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     if (passwordInput.value.trim() === Password) {
       window.location.href = new URL(
-        "home/index.html",
+        "system/index.html",
         window.location.href,
       ).href;
     } else {

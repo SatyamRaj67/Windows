@@ -97,15 +97,20 @@ footer {
 }
 
 footer .app-tray {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.25em;
 }
 
 footer .app-tray .app {
-  margin: 0.1em;
-  border-radius: 0.5em;
+  height: 2.5em;
+  aspect-ratio: 1/1;
   border-radius: 0.25em;
+  display: grid;
+  place-items: center;
 }
 
 footer .app-tray .app:hover {
@@ -113,7 +118,7 @@ footer .app-tray .app:hover {
 }
 
 footer .app-tray .app img {
-  width: 2em;
+  width: 2.125em;
   height: auto;
   padding: 0.25em;
 }

@@ -1,0 +1,27 @@
+[
+    {
+        "name": "This PC",
+        "img_src": "../public/Computer.ico",
+        "grid_area": "a1"
+    },
+    {
+        "name": "VS Code",
+        "img_src": "../public/vscode.svg",
+        "grid_area": "a2"
+    },
+    {
+        "name": "Recycle Bin",
+        "img_src": "../public/Trash Empty.ico",
+        "grid_area": "a3"
+    },
+    {
+        "name": "Control Panel",
+        "img_src": "../public/Control Panel.ico",
+        "grid_area": "a4"
+    },
+    {
+        "name": "Brave",
+        "img_src": "../public/Brave.ico",
+        "grid_area": "b1"
+    }
+]

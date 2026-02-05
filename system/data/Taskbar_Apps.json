@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Visual Studio Code",
+    "img_src": "../public/vscode.svg"
+  },
+  {
+    "name": "Whatsapp",
+    "img_src": "../public/whatsapp.svg"
+  },
+  {
+    "name": "File Explorer",
+    "img_src": "../public/File Explorer.ico"
+  },
+  {
+    "name": "Task Manager",
+    "img_src": "../public/task-manager.png"
+  },
+  {
+    "name": "Brave Browser",
+    "img_src": "../public/Brave.ico"
+  },
+  {
+    "name": "Settings",
+    "img_src": "../public/Settings.ico"
+  }
+]
