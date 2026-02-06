@@ -22,33 +22,43 @@
     />
   </head>
   <body>
+    <!-- === PAGE TRANSITION === -->
     <section id="page-transition">
       <span class="spinner"></span>
       <h1>Welcome...</h1>
     </section>
+
+    <!-- === DESKTOP SECTION === -->
     <section id="desktop">
       <main>
+        <!-- === DESKTOP GRID === -->
+        <!-- It is the first layer that will be behind the desktop container, so anything above will remain above like open apps -->
         <div
           id="desktop-grid"
           class="desktop-grid"
         ></div>
 
+        <!-- === DESKTOP CONTAINER === -->
+        <!-- Contains different desktops above the grid -->
         <div
           id="desktop-container"
           class="desktop-container"
         ></div>
       </main>
+
+      <!-- === START MENU === -->
+      <div
+        class="start-menu"
+        id="start-menu"
+      ></div>
+
+      <!-- === TASKBAR SECTION === -->
       <footer>
+        <!-- === TASKBAR APP TRAY === -->
         <ul
           class="app-tray"
           id="taskbar-app-tray"
         >
-          <li class="app">
-            <img
-              src="../public/windows.svg"
-              alt="windows"
-            />
-          </li>
         </ul>
       </footer>
     </section>

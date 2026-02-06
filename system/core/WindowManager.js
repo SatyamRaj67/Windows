@@ -4,7 +4,9 @@ export class WindowManager {
   // Windows: [{
   //  id: string,
   // name: string,
+  // app: string, // e.g. "Notepad", "Task_Manager", etc.
   // img_src: string,
+  // content: DOMString or any data to be rendered inside the window content,
   // }]
   constructor() {
     this.windows = new Map();
@@ -133,7 +135,12 @@ export class WindowManager {
     const el = document.createElement("div");
 
     el.classList.add("window-frame");
-    el.classList.add(app.img_src.includes("Notepad") ? "notepad" : "app");
+
+    switch (app.app) {
+      case "Notepad":
+        el.classList.add("notepad");
+        break;
+    }
 
     el.style.left = "100px";
     el.style.top = "50px";
@@ -149,12 +156,12 @@ export class WindowManager {
                 </div>
                 <div class="controls">
                     <button class="min"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></button>
-                    <button class="max"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-icon lucide-square"><rect width="18" height="18" x="3" y="3" rx="2"/></svg></button>
+                    <button class="max"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-icon lucide-square"><rect width="12" height="12" x="6" y="6" rx="2"/></svg></button>
                     <button class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                 </div>
             </div>
             <div class="window-content">
-                <p contenteditable="${app.img_src.includes("Notepad") ? "true" : "false"}">${app.content}</p>
+                <p contenteditable="${app.app === "Notepad" ? "true" : "false"}">${app.content}</p>
             </div>
         `;
 

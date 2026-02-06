@@ -2,6 +2,7 @@
   {
     "id": "1",
     "name": "This PC",
+    "app": "This_PC",
     "img_src": "../public/Computer.ico",
     "grid_area": "a1",
     "content": "Welcome to This PC!"
@@ -9,6 +10,7 @@
   {
     "id": "2",
     "name": "VS Code",
+    "app": "Visual_Studio_Code",
     "img_src": "../public/vscode.svg",
     "grid_area": "a2",
     "pinned": true,
@@ -17,6 +19,7 @@
   {
     "id": "3",
     "name": "Recycle Bin",
+    "app": "Recycle_Bin",
     "img_src": "../public/Trash Empty.ico",
     "grid_area": "a3",
     "content": "Welcome to Recycle Bin!"
@@ -24,6 +27,7 @@
   {
     "id": "4",
     "name": "Control Panel",
+    "app": "Control_Panel",
     "img_src": "../public/Control Panel.ico",
     "grid_area": "a4",
     "content": "Welcome to Control Panel!"
@@ -31,6 +35,7 @@
   {
     "id": "5",
     "name": "Brave",
+    "app": "Brave",
     "img_src": "../public/Brave.ico",
     "grid_area": "b1",
     "pinned": true,
@@ -39,6 +44,7 @@
   {
     "id": "6",
     "name": "Settings",
+    "app": "Settings",
     "img_src": "../public/Settings.ico",
     "pinned": true,
     "content": "Welcome to Settings!"
@@ -46,6 +52,7 @@
   {
     "id": "7",
     "name": "File Explorer",
+    "app": "File_Explorer",
     "img_src": "../public/File Explorer.ico",
     "pinned": true,
     "content": "Welcome to File Explorer!"
@@ -53,6 +60,7 @@
   {
     "id": "8",
     "name": "Task Manager",
+    "app": "Task_Manager",
     "img_src": "../public/task-manager.png",
     "pinned": true,
     "content": "Welcome to Task Manager!"
@@ -60,6 +68,7 @@
   {
     "id": "9",
     "name": "Whatsapp",
+    "app": "Whatsapp",
     "img_src": "../public/whatsapp.svg",
     "pinned": true,
     "content": "Welcome to Whatsapp!"
@@ -67,6 +76,7 @@
   {
     "id": "9999",
     "name": "DO NOT OPEN.txt",
+    "app": "Notepad",
     "img_src": "../public/Notepad.png",
     "grid_area": "b4",
     "content": "This Project is under construction!! More Puzzles coming soon!!"
