@@ -185,6 +185,9 @@ main {
   border: none;
   width: 3em;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .desktop-container .title-bar .controls button:hover {
@@ -198,6 +201,11 @@ main {
 
 .desktop-container .title-bar .controls button:last-child:hover {
   background: var(--red);
+}
+
+.desktop-container .title-bar .controls button svg{
+  width: 1em;
+  height: 1em;
 }
 
 .desktop-container .window-content {
