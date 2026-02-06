@@ -5,7 +5,7 @@
     "app": "This_PC",
     "img_src": "../public/Computer.ico",
     "grid_area": "a1",
-    "content": "Welcome to This PC!"
+    "content": "<iframe src=\"apps/This_PC.html\"></iframe>"
   },
   {
     "id": "2",
@@ -14,7 +14,7 @@
     "img_src": "../public/vscode.svg",
     "grid_area": "a2",
     "pinned": true,
-    "content": "Welcome to Visual Studio Code!"
+    "content": "<p>Welcome to Visual Studio Code!</p>"
   },
   {
     "id": "3",
@@ -22,7 +22,7 @@
     "app": "Recycle_Bin",
     "img_src": "../public/Trash Empty.ico",
     "grid_area": "a3",
-    "content": "Welcome to Recycle Bin!"
+    "content": "<p>Welcome to Recycle Bin!</p>"
   },
   {
     "id": "4",
@@ -30,7 +30,7 @@
     "app": "Control_Panel",
     "img_src": "../public/Control Panel.ico",
     "grid_area": "a4",
-    "content": "Welcome to Control Panel!"
+    "content": "<p>Welcome to Control Panel!</p>"
   },
   {
     "id": "5",
@@ -39,7 +39,7 @@
     "img_src": "../public/Brave.ico",
     "grid_area": "b1",
     "pinned": true,
-    "content": "Welcome to Brave Browser!"
+    "content": "<p>Welcome to Brave Browser!</p>"
   },
   {
     "id": "6",
@@ -47,7 +47,7 @@
     "app": "Settings",
     "img_src": "../public/Settings.ico",
     "pinned": true,
-    "content": "Welcome to Settings!"
+    "content": "<p>Welcome to Settings!</p>"
   },
   {
     "id": "7",
@@ -55,7 +55,7 @@
     "app": "File_Explorer",
     "img_src": "../public/File Explorer.ico",
     "pinned": true,
-    "content": "Welcome to File Explorer!"
+    "content": "<p>Welcome to File Explorer!</p>"
   },
   {
     "id": "8",
@@ -63,7 +63,7 @@
     "app": "Task_Manager",
     "img_src": "../public/task-manager.png",
     "pinned": true,
-    "content": "Welcome to Task Manager!"
+    "content": "<p>Welcome to Task Manager!</p>"
   },
   {
     "id": "9",
@@ -71,7 +71,7 @@
     "app": "Whatsapp",
     "img_src": "../public/whatsapp.svg",
     "pinned": true,
-    "content": "Welcome to Whatsapp!"
+    "content": "<p>Welcome to Whatsapp!</p>"
   },
   {
     "id": "9999",
@@ -79,6 +79,6 @@
     "app": "Notepad",
     "img_src": "../public/Notepad.png",
     "grid_area": "b4",
-    "content": "This Project is under construction!! More Puzzles coming soon!!"
+    "content": "<p contenteditable=\"true\">This Project is under construction!! More Puzzles coming soon!!</p>"
   }
 ]

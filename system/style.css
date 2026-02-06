@@ -126,10 +126,7 @@ main {
   pointer-events: all;
   background: var(--background);
   border-radius: 0.5em;
-  transition:
-    transform 0.3s ease,
-    width 0.3s ease,
-    height 0.3s ease;
+  transition: transform 0.3s ease;
   transform: translateY(0);
 }
 
@@ -207,11 +204,82 @@ main {
   height: calc(100% - 2em);
 }
 
-.desktop-container .window-content p {
+.desktop-container .window-content > * {
+  width: 100%;
   height: 100%;
   outline: none;
+  border: none;
 }
 
+/* === WINDOW RESIZERS === */
+.resizer {
+  position: absolute;
+  z-index: 10;
+}
+
+/* Edges */
+.resizer.n {
+  top: -5px;
+  left: 5px;
+  right: 5px;
+  height: 10px;
+  cursor: n-resize;
+}
+.resizer.s {
+  bottom: -5px;
+  left: 5px;
+  right: 5px;
+  height: 10px;
+  cursor: s-resize;
+}
+.resizer.e {
+  right: -5px;
+  top: 5px;
+  bottom: 5px;
+  width: 10px;
+  cursor: e-resize;
+}
+.resizer.w {
+  left: -5px;
+  top: 5px;
+  bottom: 5px;
+  width: 10px;
+  cursor: w-resize;
+}
+
+/* Corners */
+.resizer.nw {
+  top: -5px;
+  left: -5px;
+  width: 15px;
+  height: 15px;
+  cursor: nw-resize;
+  z-index: 11;
+}
+.resizer.ne {
+  top: -5px;
+  right: -5px;
+  width: 15px;
+  height: 15px;
+  cursor: ne-resize;
+  z-index: 11;
+}
+.resizer.sw {
+  bottom: -5px;
+  left: -5px;
+  width: 15px;
+  height: 15px;
+  cursor: sw-resize;
+  z-index: 11;
+}
+.resizer.se {
+  bottom: -5px;
+  right: -5px;
+  width: 15px;
+  height: 15px;
+  cursor: se-resize;
+  z-index: 11;
+}
 /* ================== */
 /* === TASKBAR  STYLES === */
 /* ================== */

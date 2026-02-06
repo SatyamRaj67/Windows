@@ -69,14 +69,7 @@ export class DesktopManager {
       div.draggable = true;
 
       const img = document.createElement("img");
-      const isValidSrc = (src) =>
-        /^(https?:\/\/|data:|\.?\/|[\w-]+\.[a-z]+)/i.test(src);
-      if (isValidSrc(app.img_src)) {
-        img.src = app.img_src;
-      } else {
-        console.warn(`Blocked invalid image source for ${app.name}`);
-        img.src = "";
-      }
+      img.src = app.img_src;
       img.alt = app.name;
 
       const p = document.createElement("p");

@@ -1,13 +1,4 @@
 export class WindowManager {
-  // ===   CONSTRUCTOR    ===
-
-  // Windows: [{
-  //  id: string,
-  // name: string,
-  // app: string, // e.g. "Notepad", "Task_Manager", etc.
-  // img_src: string,
-  // content: DOMString or any data to be rendered inside the window content,
-  // }]
   constructor() {
     this.windows = new Map();
     this.zIndex = 100;
@@ -15,17 +6,14 @@ export class WindowManager {
     this.taskbar = document.getElementById("taskbar-app-tray");
   }
 
-  openWindow(app) {
-    if (this.windows.has(app.id)) {
-      this.focusWindow(app.id);
-      return;
-    }
+  // === PUBLIC API ===
 
-    // === Create Window DOM ===
+  openWindow(app) {
+    if (this.windows.has(app.id)) return this.focusWindow(app.id);
+
     const winEl = this.createWindowDOM(app);
     this.desktop.appendChild(winEl);
 
-    // === Handle Taskbar Icons ===
     let taskbarItem = this.taskbar.querySelector(`li[data-id="${app.id}"]`);
     let isTemp = false;
 
@@ -34,209 +22,248 @@ export class WindowManager {
       this.taskbar.appendChild(taskbarItem);
       isTemp = true;
     }
-
     taskbarItem.classList.add("open");
+
+    // Initialize unified drag/resize/focus logic
+    const controller = this.enableWindowLogic(winEl, app.id);
 
     this.windows.set(app.id, {
       element: winEl,
       taskbarElement: taskbarItem,
-      isTemp: isTemp,
-      controller: winEl._controller,
+      isTemp,
+      controller,
     });
-
     this.focusWindow(app.id);
   }
 
   closeWindow(id) {
-    // === Find Window ===
     const win = this.windows.get(id);
     if (!win) return;
 
-    if (win.controller) {
-      win.controller.abort();
-    }
-
-    // === Remove Window DOM ===
+    win.controller.abort(); // Kill all event listeners for this window
     win.element.remove();
-
-    // === Handle Taskbar Icon ===
-    win.taskbarElement.classList.remove("open");
-    win.taskbarElement.classList.remove("active");
-    if (win.isTemp) {
-      win.taskbarElement.remove();
-    }
-
-    // === Remove from Window Manager ===
+    win.taskbarElement.classList.remove("open", "active");
+    if (win.isTemp) win.taskbarElement.remove();
     this.windows.delete(id);
-  }
-
-  focusWindow(id) {
-    const win = this.windows.get(id);
-    if (!win) return;
-
-    // === Bring to Front ===
-    this.zIndex++;
-    win.element.style.zIndex = this.zIndex;
-    win.element.style.display = "block";
-
-    // === Visual Indicator of the focused window ===
-    document
-      .querySelectorAll(".window-frame")
-      .forEach((w) => w.classList.remove("active"));
-    win.element.classList.add("active");
-
-    // === Focus Taskbar Icon ===
-    document
-      .querySelectorAll(".app")
-      .forEach((app) => app.classList.remove("active"));
-    win.taskbarElement.classList.add("active");
   }
 
   toggleWindow(id) {
     const win = this.windows.get(id);
     if (!win) return;
 
-    if (win.element.classList.contains("minimized")) {
-      this.focusWindow(id);
-      win.element.classList.remove("minimized");
-    } else if (win.element.classList.contains("active")) {
-      win.element.classList.add("minimized");
-      win.element.classList.remove("active");
-      win.taskbarElement.classList.remove("active");
+    if (
+      win.element.classList.contains("active") &&
+      !win.element.classList.contains("minimized")
+    ) {
+      this.minimizeWindow(id);
     } else {
       this.focusWindow(id);
     }
   }
 
-  maximizeWindow(id) {
+  focusWindow(id) {
     const win = this.windows.get(id);
     if (!win) return;
 
-    if (win.element.classList.contains("maximized")) {
-      win.element.classList.remove("maximized");
-    } else {
-      win.element.classList.add("maximized");
-    }
+    // UI Updates
+    win.element.classList.remove("minimized");
+    win.element.style.display = ""; // Reset display if hidden
+    win.element.style.zIndex = ++this.zIndex;
+
+    // Toggle Active Classes
+    document
+      .querySelectorAll(".window-frame")
+      .forEach((w) => w.classList.toggle("active", w === win.element));
+    document
+      .querySelectorAll(".app")
+      .forEach((a) => a.classList.toggle("active", a === win.taskbarElement));
   }
 
   minimizeWindow(id) {
     const win = this.windows.get(id);
     if (!win) return;
-
-    if (!win.element.classList.contains("minimized")) {
-      win.element.classList.add("minimized");
-      win.element.classList.remove("active");
-      win.taskbarElement.classList.remove("active");
-    }
+    win.element.classList.add("minimized");
+    win.element.classList.remove("active");
+    win.taskbarElement.classList.remove("active");
   }
 
-  // === Windows Generator Functions ===
+  maximizeWindow(id) {
+    this.windows.get(id)?.element.classList.toggle("maximized");
+  }
+
+  // === DOM GENERATION ===
+
   createWindowDOM(app) {
     const el = document.createElement("div");
+    el.classList.add(
+      "window-frame",
+      app.app === "Notepad" ? "notepad" : "default",
+    );
 
-    el.classList.add("window-frame");
+    // Initial Position/Size
+    Object.assign(el.style, {
+      top: "50px",
+      left: "100px",
+      width: "400px",
+      height: "300px",
+    });
 
-    switch (app.app) {
-      case "Notepad":
-        el.classList.add("notepad");
-        break;
-    }
+    // Internal Content
+    const content = app.iframe_src
+      ? `<iframe src="${app.iframe_src}" style="width:100%;height:100%;border:none;pointer-events:none;"></iframe>`
+      : app.content || "";
 
-    el.style.left = "100px";
-    el.style.top = "50px";
-    el.style.width = "400px";
-    el.style.height = "300px";
     el.innerHTML = `
-            <div class="title-bar">
-                <div class="title">
-                <div class="imgBx">
-                  <img class="icon">
-                </div>
-                    <span class="title-text"></span>
-                </div>
-                <div class="controls">
-                    <button class="min"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></button>
-                    <button class="max"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-icon lucide-square"><rect width="12" height="12" x="6" y="6" rx="2"/></svg></button>
-                    <button class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-                </div>
-            </div>
-            <div class="window-content">
-                <p contenteditable="${app.app === "Notepad" ? "true" : "false"}">${app.content}</p>
-            </div>
-        `;
+      <!-- Resize Handles -->
+      <div class="resizer n"></div><div class="resizer e"></div><div class="resizer s"></div><div class="resizer w"></div>
+      <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer se"></div><div class="resizer sw"></div>
+      
+      <!-- Title Bar -->
+      <div class="title-bar">
+        <div class="title">
+          <div class="imgBx"><img class="icon" src="${app.img_src}" alt="${app.name}"></div>
+          <span class="title-text">${app.name}</span>
+        </div>
+        <div class="controls">
+          <button class="min">&minus;</button>
+          <button class="max">&#9633;</button>
+          <button class="close">&times;</button>
+        </div>
+      </div>
+      
+      <!-- Content -->
+      <div class="window-content">${content}</div>
+    `;
 
-    // === Set App Icon ===
-    const img = el.querySelector(".icon");
-    img.src = app.img_src;
-    img.alt = app.name;
+    // Button Listeners
+    el.querySelector(".close").onclick = () => this.closeWindow(app.id);
+    el.querySelector(".max").onclick = () => this.maximizeWindow(app.id);
+    el.querySelector(".min").onclick = () => this.minimizeWindow(app.id);
 
-    el.querySelector(".title-text").textContent = app.name;
-
-    // === Internal Mouse Events ===
-    el.addEventListener("mousedown", () => this.focusWindow(app.id));
-
-    el.querySelector(".close").addEventListener("click", () => {
-      this.closeWindow(app.id);
-    });
-
-    el.querySelector(".max").addEventListener("click", () => {
-      this.maximizeWindow(app.id);
-    });
-
-    el.querySelector(".min").addEventListener("click", () => {
-      this.minimizeWindow(app.id);
-    });
-
-    const controller = this.makeDraggable(el, el.querySelector(".title-bar"));
-    el._controller = controller;
     return el;
   }
 
   createTaskbarDOM(app) {
     const li = document.createElement("li");
-    li.classList.add("app");
+    li.className = "app";
     li.dataset.id = app.id;
-    li.innerHTML = `
-      <img src="${app.img_src}" alt="${app.name}" />
-    `;
-    li.addEventListener("click", () => {
-      this.toggleWindow(app.id);
-    });
-
+    li.innerHTML = `<img src="${app.img_src}" alt="${app.name}" />`;
+    li.onclick = () => this.toggleWindow(app.id);
     return li;
   }
 
-  makeDraggable(el, handle) {
-    let isDown = false;
-    let offset = [0, 0];
-    const controller = new AbortController();
+  // === CORE INTERACTION LOGIC (Drag & Resize) ===
 
-    handle.addEventListener(
+  enableWindowLogic(el, id) {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    // State
+    const state = {
+      isDragging: false,
+      isResizing: false,
+      resizeDir: null, // n, s, e, w, ne, nw, se, sw
+      startX: 0,
+      startY: 0,
+      startW: 0,
+      startH: 0,
+      startL: 0,
+      startT: 0,
+    };
+
+    // Helper: Toggle Iframe Interaction (prevents dragging lag)
+    const toggleFrames = (enable) => {
+      el.querySelectorAll("iframe").forEach(
+        (f) => (f.style.pointerEvents = enable ? "all" : "none"),
+      );
+    };
+
+    // 1. Mouse Down (Start Action)
+    el.addEventListener(
       "mousedown",
       (e) => {
-        isDown = true;
-        offset = [el.offsetLeft - e.clientX, el.offsetTop - e.clientY];
+        this.focusWindow(id);
+
+        const target = e.target;
+
+        // Check for Resizing
+        if (target.classList.contains("resizer")) {
+          state.isResizing = true;
+          state.resizeDir = target.className.replace("resizer ", "").trim();
+        }
+        // Check for Dragging (Title bar only, not controls)
+        else if (target.closest(".title-bar") && !target.closest(".controls")) {
+          state.isDragging = true;
+        } else {
+          return; // Clicked on content or buttons
+        }
+
+        // Capture Initial State
+        state.startX = e.clientX;
+        state.startY = e.clientY;
+        const rect = el.getBoundingClientRect();
+        state.startW = rect.width;
+        state.startH = rect.height;
+        state.startL = el.offsetLeft;
+        state.startT = el.offsetTop;
+
+        toggleFrames(false); // Disable iframes during move/resize
+        e.preventDefault();
       },
-      { signal: controller.signal },
+      { signal },
     );
 
-    document.addEventListener(
-      "mouseup",
-      () => {
-        isDown = false;
-      },
-      { signal: controller.signal },
-    );
-
+    // 2. Mouse Move (Update Action) - Attached to Document
     document.addEventListener(
       "mousemove",
       (e) => {
-        if (isDown) {
-          el.style.left = e.clientX + offset[0] + "px";
-          el.style.top = e.clientY + offset[1] + "px";
+        if (!state.isDragging && !state.isResizing) return;
+
+        const dx = e.clientX - state.startX;
+        const dy = e.clientY - state.startY;
+
+        if (state.isDragging && !el.classList.contains("maximized")) {
+          el.style.left = `${state.startL + dx}px`;
+          el.style.top = `${state.startT + dy}px`;
+        }
+
+        if (state.isResizing) {
+          const d = state.resizeDir;
+          const s = el.style;
+
+          // Vertical
+          if (d.includes("s"))
+            s.height = `${Math.max(100, state.startH + dy)}px`;
+          if (d.includes("n")) {
+            const h = Math.max(100, state.startH - dy);
+            s.height = `${h}px`;
+            s.top = `${state.startT + (state.startH - h)}px`;
+          }
+
+          // Horizontal
+          if (d.includes("e"))
+            s.width = `${Math.max(200, state.startW + dx)}px`;
+          if (d.includes("w")) {
+            const w = Math.max(200, state.startW - dx);
+            s.width = `${w}px`;
+            s.left = `${state.startL + (state.startW - w)}px`;
+          }
         }
       },
-      { signal: controller.signal },
+      { signal },
+    );
+
+    // 3. Mouse Up (End Action)
+    document.addEventListener(
+      "mouseup",
+      () => {
+        if (state.isDragging || state.isResizing) {
+          state.isDragging = false;
+          state.isResizing = false;
+          toggleFrames(true); // Re-enable iframes
+        }
+      },
+      { signal },
     );
 
     return controller;
