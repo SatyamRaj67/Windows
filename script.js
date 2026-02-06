@@ -66,10 +66,35 @@ passwordInput.addEventListener("keydown", (e) => {
       ).href;
     } else {
       hint.classList.add("active");
-      
+
       passwordInput.classList.remove("error");
       void passwordInput.offsetWidth;
       passwordInput.classList.add("error");
     }
   }
+});
+
+// ====================
+// === BATTERY STATUS       ===
+// ====================
+const lucideBattery = document.getElementsByClassName("lucide-battery-medium");
+
+navigator.getBattery().then((battery) => {
+  const batteryLevels = document.getElementsByClassName("battery-level");
+  const chargingIndicators =
+    document.getElementsByClassName("charging-indicator");
+
+  const updateBatteryStatus = () => {
+    const displayStyle = battery.charging ? "block" : "none";
+    const levelWidth = battery.level * 10;
+
+    for (let i = 0; i < lucideBattery.length; i++) {
+      chargingIndicators[i].style.display = displayStyle;
+      batteryLevels[i].setAttribute("width", levelWidth);
+    }
+  };
+
+  updateBatteryStatus();
+  battery.addEventListener("chargingchange", updateBatteryStatus);
+  battery.addEventListener("levelchange", updateBatteryStatus);
 });
