@@ -51,7 +51,7 @@ main {
 }
 
 /* ==================== */
-/* ===   DESKTOP GRID        === */
+/* ===  DESKTOP GRID         === */
 /* ==================== */
 
 .desktop-grid {
@@ -101,6 +101,12 @@ main {
   max-width: 100%;
   font-size: 0.875em;
   outline: 0;
+}
+
+.desktop-grid-item p:focus,
+.desktop-grid-item p:focus-visible {
+  outline: 2px solid var(--blue);
+  border-radius: 2px;
 }
 
 /* ===================== */
@@ -219,7 +225,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99999999;
+  z-index: var(--z-taskbar);
 }
 
 footer .app-tray {
@@ -289,12 +295,12 @@ footer .app-tray .app img {
   transform: translateX(-50%) translateY(100vh);
   border-radius: 0.5em;
   backdrop-filter: blur(2em) brightness(0.2);
+  transition: transform 0.3s ease;
 }
 
 .start-menu.open {
   transform: translateX(-50%) translateY(0);
 }
-
 /* ================ */
 /* ===  APP SPECIFIC === */
 /* ================ */

@@ -30,6 +30,9 @@ async function loadJSON(path) {
 // ====================
 // Top-level await is supported in modules
 const Installed_Apps = await loadJSON("data/Installed_Apps.json");
+if (Installed_Apps.length === 0) {
+  console.warn("No installed apps loaded - desktop and taskbar will be empty");
+}
 
 // 1. Initialize Window Manager
 const wm = new WindowManager();
@@ -37,5 +40,5 @@ const wm = new WindowManager();
 // 2. Initialize Taskbar (Needs WM to open apps)
 const tm = new TaskbarManager(wm, Installed_Apps);
 
-// 3. Initialize Desktop Force (Needs WM to open apps, Apps List for icons)
+// 3. Initialize Desktop Icons (Needs WM to open apps, Apps List for icons)
 const dm = new DesktopManager(wm, Installed_Apps);

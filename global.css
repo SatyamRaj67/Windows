@@ -29,6 +29,9 @@
   --blue: oklch(65.832% 0.1756 254.828);
   --gray: oklch(71.068% 0.0352 256.828);
 
+  /* Z-Index Layers */
+  --z-taskbar: 99999999;
+
   --accent: oklch(37.703% 0.06991 163.448);
   --accent-foreground: oklch(95.75% 0.06688 141.194);
   --destructive: oklch(0.704 0.191 22.216);

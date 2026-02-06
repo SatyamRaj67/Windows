@@ -3,6 +3,9 @@ export class DesktopManager {
     this.wm = windowManager;
     this.apps = installedApps;
     this.grid = document.getElementById("desktop-grid");
+    if (!this.grid) {
+      throw new Error("Desktop grid element not found");
+    }
     this.cols = [
       "a",
       "b",
@@ -41,22 +44,7 @@ export class DesktopManager {
         slot.style.width = "100%";
         slot.style.height = "100%";
         slot.dataset.area = areaName;
-
-        // === Drag Over ===
-        slot.addEventListener("dragover", (e) => e.preventDefault());
-
-        // === Drop ===
-        slot.addEventListener("drop", (e) => {
-          e.preventDefault();
-          const appId = e.dataTransfer.getData("text/plain");
-          const icon = document.querySelector(
-            `.desktop-grid-item[data-id="${appId}"]`,
-          );
-
-          if (icon && !slot.hasChildNodes()) {
-            slot.appendChild(icon);
-          }
-        });
+        slot.classList.add("desktop-slot");
 
         this.grid.appendChild(slot);
       }
@@ -79,10 +67,24 @@ export class DesktopManager {
       div.dataset.id = app.id;
       div.dataset.name = app.name;
       div.draggable = true;
-      div.innerHTML = `
-        <img src="${app.img_src}" alt="${app.name}" />
-        <p contenteditable="true">${app.name}</p>
-      `;
+
+      const img = document.createElement("img");
+      const isValidSrc = (src) =>
+        /^(https?:\/\/|data:|\.?\/|[\w-]+\.[a-z]+)/i.test(src);
+      if (isValidSrc(app.img_src)) {
+        img.src = app.img_src;
+      } else {
+        console.warn(`Blocked invalid image source for ${app.name}`);
+        img.src = "";
+      }
+      img.alt = app.name;
+
+      const p = document.createElement("p");
+      p.textContent = app.name;
+      p.contentEditable = "true";
+
+      div.appendChild(img);
+      div.appendChild(p);
 
       // === Drag Start ===
       div.addEventListener("dragstart", (e) => {
@@ -125,6 +127,29 @@ export class DesktopManager {
         (e.target.dataset && e.target.dataset.area)
       ) {
         this.deselectAll();
+      }
+    });
+
+    // Delegated Dragover
+    this.grid.addEventListener("dragover", (e) => {
+      if (e.target.closest(".desktop-slot")) {
+        e.preventDefault();
+      }
+    });
+
+    // Delegated Drop
+    this.grid.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const slot = e.target.closest(".desktop-slot");
+      if (!slot) return;
+
+      const appId = e.dataTransfer.getData("text/plain");
+      const icon = document.querySelector(
+        `.desktop-grid-item[data-id="${appId}"]`,
+      );
+
+      if (icon && !slot.hasChildNodes()) {
+        slot.appendChild(icon);
       }
     });
   }
