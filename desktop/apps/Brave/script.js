@@ -44,7 +44,7 @@ input.addEventListener("keypress", function (event) {
         );
         break;
 
-      case "69420SatyamRaj":
+      case "MEOW":
         event.preventDefault();
         alert("HAHA!! I am feeling lucky now!!");
         const secret_message =
