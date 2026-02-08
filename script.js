@@ -59,17 +59,27 @@ document.addEventListener("keydown", (e) => {
 
 passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    if (passwordInput.value.trim() === Password) {
-      window.location.href = new URL(
-        "system/index.html",
-        window.location.href,
-      ).href;
-    } else {
-      hint.classList.add("active");
+    switch (passwordInput.value.trim()) {
+      default:
+        hint.classList.add("active");
+        passwordInput.classList.remove("error");
+        void passwordInput.offsetWidth;
+        passwordInput.classList.add("error");
+        break;
 
-      passwordInput.classList.remove("error");
-      void passwordInput.offsetWidth;
-      passwordInput.classList.add("error");
+      case Password:
+        window.location.href = new URL(
+          "desktop/index.html",
+          window.location.href,
+        ).href;
+        break;
+
+      case "69420SatyamRaj":
+        hint.classList.add("active");
+        passwordInput.classList.remove("error");
+        passwordInput.classList.add("correct");
+        hint.innerText = "The Next Hint is by putting 'MEOW' in the Search Bar of ....";
+        break;
     }
   }
 });

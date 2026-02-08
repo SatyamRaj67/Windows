@@ -39,6 +39,10 @@ input.error {
   animation: jitter 150ms linear;
 }
 
+input.correct {
+  border-bottom: 0.2em solid var(--green);
+}
+
 @keyframes jitter {
   0% {
     transform: translateX(0);

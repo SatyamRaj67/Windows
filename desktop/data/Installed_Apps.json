@@ -14,7 +14,7 @@
     "img_src": "../public/vscode.svg",
     "grid_area": "a2",
     "pinned": true,
-    "content": "<p>Welcome to Visual Studio Code!</p>"
+    "content": "<p>Welcome to Visual Studio Code! <br> WORK IN PROGRESS!!</p>"
   },
   {
     "id": "3",
@@ -22,7 +22,7 @@
     "app": "Recycle_Bin",
     "img_src": "../public/Trash Empty.ico",
     "grid_area": "a3",
-    "content": "<p>Welcome to Recycle Bin!</p>"
+    "content": "<p>You really like seeing other's people trash, Don't you? You won't find Homework folder with anime.</p>"
   },
   {
     "id": "4",
@@ -71,7 +71,15 @@
     "app": "Whatsapp",
     "img_src": "../public/whatsapp.svg",
     "pinned": true,
-    "content": "<p>Welcome to Whatsapp!</p>"
+    "content": "<p>Why do you want to see other people's messages? <br> <br> You Pervert</p>"
+  },
+  {
+    "id": "9998",
+    "name": "PUZZLE 2.txt",
+    "app": "Notepad",
+    "img_src": "../public/Notepad.png",
+    "grid_area": "f3",
+    "content": "<iframe src=\"apps/Puzzle_2.html\"></iframe>"
   },
   {
     "id": "9999",
@@ -79,6 +87,6 @@
     "app": "Notepad",
     "img_src": "../public/Notepad.png",
     "grid_area": "b4",
-    "content": "<p contenteditable=\"true\">This Project is under construction!! More Puzzles coming soon!!</p>"
+    "content": "<p contenteditable=\"true\">This Project is under construction!! More Puzzles coming soon!! <br> THIS IS CONTENTEDITABLE BTW</p>"
   }
 ]
