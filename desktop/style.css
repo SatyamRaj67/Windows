@@ -368,7 +368,7 @@ footer .app-tray .app img {
   width: 30vw;
   bottom: 4em;
   left: 50%;
-  padding: 4em;
+  padding: 1.5em;
   transform: translateX(-50%) translateY(100vh);
   border-radius: 0.5em;
   backdrop-filter: blur(2em) brightness(0.2);
@@ -379,16 +379,29 @@ footer .app-tray .app img {
   transform: translateX(-50%) translateY(0);
 }
 
-.start-menu input.search {
+.start-menu .search-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
   width: 100%;
-  padding: 0.5em;
+  padding: 0 0.5em;
   border-radius: 0.25em;
   height: 2em;
   background: var(--background);
   color: var(--foreground);
-  border: 2px solid oklch(100% 0.00011 271.152 / 0.493);
+  border: 1px solid oklch(100% 0.00011 271.152 / 0.158);
   border-radius: 2em;
 }
+
+.start-menu input#start_menu_search {
+  flex-grow: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
 /* ================ */
 /* ===  APP SPECIFIC === */
 /* ================ */

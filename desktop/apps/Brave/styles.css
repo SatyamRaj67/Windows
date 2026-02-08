@@ -1,0 +1,39 @@
+
+/* === BRAVE STYLES === */
+.brave{
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.brave .logo{
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.brave .logo img{
+    width: 100%;
+    height: auto;
+}
+
+.brave .search{
+    width: 40vw;
+    padding: 0.5em;
+    border: 2px solid var(--border);
+    border-radius: 2em;
+}
+
+.brave .links button{
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 2em;
+    background: var(--border);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

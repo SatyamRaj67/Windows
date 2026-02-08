@@ -5,7 +5,7 @@
     "app": "This_PC",
     "img_src": "../public/Computer.ico",
     "grid_area": "a1",
-    "content": "<iframe src=\"apps/This_PC.html\"></iframe>"
+    "content": "<iframe src=\"apps/This_PC\"></iframe>"
   },
   {
     "id": "2",
@@ -39,7 +39,7 @@
     "img_src": "../public/Brave.ico",
     "grid_area": "b1",
     "pinned": true,
-    "content": "<p>Welcome to Brave Browser!</p>"
+    "content": "<iframe src=\"apps/Brave\"></iframe>"
   },
   {
     "id": "6",
@@ -79,7 +79,7 @@
     "app": "Notepad",
     "img_src": "../public/Notepad.png",
     "grid_area": "f3",
-    "content": "<iframe src=\"apps/Puzzle_2.html\"></iframe>"
+    "content": "<iframe src=\"apps/Puzzle_2\"></iframe>"
   },
   {
     "id": "9999",
