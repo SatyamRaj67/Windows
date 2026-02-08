@@ -87,6 +87,6 @@
     "app": "Notepad",
     "img_src": "../public/Notepad.png",
     "grid_area": "b4",
-    "content": "<p contenteditable=\"true\">This Project is under construction!! More Puzzles coming soon!! <br> THIS IS CONTENTEDITABLE BTW</p>"
+    "content": "<p contenteditable=\"true\">The search to victory continues!! <br> THIS IS CONTENTEDITABLE BTW</p>"
   }
 ]
