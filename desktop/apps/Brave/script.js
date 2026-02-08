@@ -64,7 +64,8 @@ feelingLuckyButton.addEventListener("click", function () {
 });
 
 searchButton.addEventListener("click", function () {
-  const query = input.value;
-  const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-  window.location.href = url;
+  const event = new KeyboardEvent("keypress", {
+    key: "Enter",
+  });
+  input.dispatchEvent(event);
 });
