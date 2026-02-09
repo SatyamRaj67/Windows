@@ -22,7 +22,7 @@
     "app": "Recycle_Bin",
     "img_src": "../public/Windows Icons/Trash Full.ico",
     "grid_area": "a3",
-    "content": "<iframe src=\"apps/Recycle_Bin\"></iframe>"
+    "content": "<iframe src=\"apps/Explorer\"></iframe>"
   },
   {
     "id": "4",
@@ -55,7 +55,7 @@
     "app": "File_Explorer",
     "img_src": "../public/Windows Icons/Explorer.ico",
     "pinned": true,
-    "content": "<p>Welcome to File Explorer!</p>"
+    "content": "<iframe src=\"apps/Explorer\"></iframe>"
   },
   {
     "id": "8",

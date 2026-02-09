@@ -1,0 +1,85 @@
+[
+  {
+    "id": "1",
+    "name": "Desktop",
+    "img_src": "../../../public/Windows Icons/Folder Desktop.ico",
+    "type": "folder",
+    "files": []
+  },
+  {
+    "id": "2",
+    "name": "Downloads",
+    "img_src": "../../../public/Windows Icons/Folder Downloads.ico",
+    "type": "folder"
+  },
+  {
+    "id": "3",
+    "name": "Documents",
+    "img_src": "../../../public/Windows Icons/Folder Documents.ico",
+    "type": "folder",
+    "files": [
+      {
+        "name": "IMPORTANT FILES.txt",
+        "type": "text",
+        "img_src": "../../../public/Windows Icons/Notes.ico",
+        "content": "I am very important. LOL",
+        "properties": { "Size": "2KB", "Created": "2024-02-01" }
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Recycle Bin",
+    "img_src": "../../../public/Windows Icons/Trash Full.ico",
+    "type": "folder",
+    "files": [
+      {
+        "name": "Old Project.zip",
+        "type": "archive",
+        "img_src": "../../../public/Windows Icons/Zip.ico",
+        "content": "This is a zip file containing old project files.",
+        "properties": { "Size": "500MB", "Deleted On": "2024-05-20" }
+      },
+      {
+        "name": "Brave Easter Eggs.txt",
+        "type": "text",
+        "img_src": "../../../public/Windows Icons/Notes.ico",
+        "content": "Try writing Brave, Chrome or Opera in Brave Search to find some fun Easter Eggs!",
+        "properties": { "Size": "1KB", "Deleted On": "2024-06-10" }
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Pictures",
+    "img_src": "../../../public/Windows Icons/Folder Pictures.ico",
+    "type": "folder",
+    "files": [
+      {
+        "name": "User.jpg",
+        "type": "image",
+        "img_src": "../../../public/Windows Icons/User.ico",
+        "content": "../../../public/Windows Icons/User.ico",
+        "properties": { "Size": "2.1MB", "Dimensions": "1080x1920" }
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Music",
+    "img_src": "../../../public/Windows Icons/Folder Music.ico",
+    "type": "folder"
+  },
+  {
+    "id": "7",
+    "name": "Videos",
+    "img_src": "../../../public/Windows Icons/Folder Videos.ico",
+    "type": "folder"
+  },
+  {
+    "id": "8",
+    "name": "OneDrive",
+    "img_src": "../../../public/Windows Icons/One Drive.ico",
+    "type": "folder"
+  }
+]
