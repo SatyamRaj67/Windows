@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "This PC",
+    "img_src": "../../../public/Computer.ico",
+    "type": "folder"
+  },
+  {
+    "id": "2",
+    "name": "Recycle Bin",
+    "img_src": "../../../public/Computer.ico",
+    "type": "folder"
+  }
+]

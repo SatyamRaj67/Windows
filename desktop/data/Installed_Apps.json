@@ -3,7 +3,7 @@
     "id": "1",
     "name": "This PC",
     "app": "This_PC",
-    "img_src": "../public/Computer.ico",
+    "img_src": "../public/Windows Icons/Computer.ico",
     "grid_area": "a1",
     "content": "<iframe src=\"apps/This_PC\"></iframe>"
   },
@@ -20,15 +20,15 @@
     "id": "3",
     "name": "Recycle Bin",
     "app": "Recycle_Bin",
-    "img_src": "../public/Trash Empty.ico",
+    "img_src": "../public/Windows Icons/Trash Full.ico",
     "grid_area": "a3",
-    "content": "<p>You really like seeing other's people trash, Don't you? You won't find Homework folder with anime.</p>"
+    "content": "<iframe src=\"apps/Recycle_Bin\"></iframe>"
   },
   {
     "id": "4",
     "name": "Control Panel",
     "app": "Control_Panel",
-    "img_src": "../public/Control Panel.ico",
+    "img_src": "../public/Windows Icons/Control Panel.ico",
     "grid_area": "a4",
     "content": "<p>Welcome to Control Panel!</p>"
   },
@@ -45,7 +45,7 @@
     "id": "6",
     "name": "Settings",
     "app": "Settings",
-    "img_src": "../public/Settings.ico",
+    "img_src": "../public/Windows Icons/Settings.ico",
     "pinned": true,
     "content": "<p>Welcome to Settings!</p>"
   },
@@ -53,7 +53,7 @@
     "id": "7",
     "name": "File Explorer",
     "app": "File_Explorer",
-    "img_src": "../public/File Explorer.ico",
+    "img_src": "../public/Windows Icons/Explorer.ico",
     "pinned": true,
     "content": "<p>Welcome to File Explorer!</p>"
   },

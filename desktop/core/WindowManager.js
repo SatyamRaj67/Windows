@@ -13,6 +13,7 @@ export class WindowManager {
 
     const winEl = this.createWindowDOM(app);
     this.desktop.appendChild(winEl);
+    winEl.classList.add("maximized");
 
     let taskbarItem = this.taskbar.querySelector(`li[data-id="${app.id}"]`);
     let isTemp = false;

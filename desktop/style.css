@@ -199,6 +199,10 @@ main {
   border-top-right-radius: 0.5em;
 }
 
+.desktop-container .window-frame.maximized .title-bar .controls button:last-child {
+  border-top-right-radius: 0;
+}
+
 .desktop-container .title-bar .controls button:last-child:hover {
   background: var(--red);
 }
