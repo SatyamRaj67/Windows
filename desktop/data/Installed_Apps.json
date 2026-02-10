@@ -63,7 +63,7 @@
     "app": "Task_Manager",
     "img_src": "../public/task-manager.png",
     "pinned": true,
-    "content": "<p>Welcome to Task Manager!</p>"
+    "content": "<iframe src=\"apps/Task_Manager\"></iframe>"
   },
   {
     "id": "9",
