@@ -62,7 +62,10 @@ export class TaskbarManager {
   // ===   START MENU SETUP   ===
   setupStartMenu() {
     this._onDocumentKeydown = (e) => {
-      if (e.key === "Meta") this.toggleStartMenu();
+      if (e.key === "Meta") {
+        e.preventDefault();
+        this.toggleStartMenu();
+      }
     };
     document.addEventListener("keydown", this._onDocumentKeydown);
 

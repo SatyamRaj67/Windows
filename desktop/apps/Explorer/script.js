@@ -43,14 +43,14 @@ function renderFiles(files) {
   els.fileList.innerHTML = "";
 
   if(files.length === 0) {
-    els.fileList.innerHTML = "<p style='opacity:0.5; width:100%;'>This folder is empty.</p>";
+    els.fileList.innerHTML = "<p class='empty-msg'>This folder is empty.</p>";
     return;
   }
 
   files.forEach(file => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <div class="icon"><img src="${file.img_src || file.content}"></div>
+      <div class="icon"><img src="${file.img_src}"></div>
       <p>${file.name}</p>
     `;
 
@@ -64,24 +64,30 @@ function renderFiles(files) {
 
 function renderProperties(file) {
   let previewHTML = "";
+  
+  // Now using 'content' uniformly based on 'type'
   if (file.type === "image") {
-    previewHTML = `<img src="${file.content}" style="width:100%; border-radius: 0.5em; margin-bottom: 1em;">`;
-  } else if (file.type === "text") {
-    previewHTML = `<div style="background: white; color: black; padding: 1em; border-radius: 0.5em; margin-bottom: 1em; font-family: monospace;">${file.content}</div>`;
+    previewHTML = `<img src="${file.content}" class="preview-img">`;
+  } else if (file.type === "text" || file.type === "archive") {
+    previewHTML = `<div class="preview-text">${file.content}</div>`;
   } else if (file.type === "audio") {
-     previewHTML = `<audio controls src="${file.content}" style="width:100%; margin-bottom: 1em;"></audio>`;
+     previewHTML = `<audio controls src="${file.content}" class="preview-audio"></audio>`;
   }
 
   const propList = Object.entries(file.properties || {})
-    .map(([key, val]) => `<div style="display:flex; justify-content:space-between; font-size:0.8em; margin-bottom:0.25em;"><span style="opacity:0.6">${key}:</span> <span>${val}</span></div>`)
+    .map(([key, val]) => `
+      <div class="prop-row">
+        <span class="prop-key">${key}:</span> 
+        <span>${val}</span>
+      </div>`)
     .join("");
 
   els.previewInfo.innerHTML = `
     <h2>${file.name}</h2>
-    <hr style="margin: 1em 0; opacity: 0.2;">
+    <hr class="preview-hr">
     ${previewHTML}
     <h3>Properties</h3>
-    <div style="margin-top: 0.5em;">
+    <div class="prop-list">
       ${propList}
     </div>
   `;

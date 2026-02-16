@@ -203,3 +203,50 @@ aside img {
   height: auto;
   object-fit: contain;
 }
+
+/* New classes for JS generation */
+.empty-msg {
+  opacity: 0.5;
+  width: 100%;
+}
+
+.preview-img {
+  width: 100%;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+
+.preview-text {
+  background: white;
+  color: black;
+  padding: 1em;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.preview-audio {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.preview-hr {
+  margin: 1em 0;
+  opacity: 0.2;
+}
+
+.prop-list {
+  margin-top: 0.5em;
+}
+
+.prop-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  margin-bottom: 0.25em;
+}
+
+.prop-key {
+  opacity: 0.6;
+}

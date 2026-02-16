@@ -18,7 +18,7 @@ const searchButton = document.getElementById("search-button");
 
 input.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
-    switch (input.value) {
+    switch (input.value.toLowerCase()) {
       default:
         event.preventDefault();
         const query = input.value;
@@ -27,24 +27,24 @@ input.addEventListener("keypress", function (event) {
         window.location.href = url;
         break;
 
-      case "Brave":
+      case "brave":
         event.preventDefault();
         alert("You are already using Brave! Great choice!");
         break;
 
-      case "Chrome":
+      case "chrome":
         event.preventDefault();
         alert("CHROME FREAKING SUCKS!!");
         break;
 
-      case "Opera":
+      case "opera":
         event.preventDefault();
         alert(
           "OK, YOU STUPID ANIME LOVERS WHO KEEP CALLING THEMSELVES THE 'TRUE PASSIONATE GAMERS'!",
         );
         break;
 
-      case "MEOW":
+      case "meow":
         event.preventDefault();
         alert("HAHA!! I am feeling lucky now!!");
         const secret_message =
