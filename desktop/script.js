@@ -405,12 +405,22 @@ taskbar.addEventListener("click", (event) => {
   openWindow(app);
 });
 
-// =========================
+// ==========================
 // === START MENU MANAGEMENT  ===
-// =========================
+// ==========================
 const startMenuBtn = document.getElementById("start-menu-btn");
 const startMenu = document.getElementById("start-menu");
 
 startMenuBtn.addEventListener("click", () => {
   startMenu.classList.toggle("visible");
+});
+
+// ============================
+// === NOTIFICATION MENU                   ===
+// ============================
+const notificationMenuBtn = document.getElementById("date-time");
+const notificationMenu = document.getElementById("notification-menu");
+
+notificationMenuBtn.addEventListener("click", () => {
+  notificationMenu.classList.toggle("visible");
 });
