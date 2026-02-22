@@ -291,14 +291,6 @@ footer ul {
   user-select: none;
 }
 
-footer ul#taskbar-app-tray li {
-  height: 2.5em;
-  aspect-ratio: 1/1;
-  padding: 0.4em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 footer ul li:hover {
   background: var(--border);
@@ -326,6 +318,42 @@ footer ul li .icon{
 footer ul li .icon svg{
   height: 1.25em;
   width: auto;
+}
+
+footer ul#taskbar-app-tray li {
+  position: relative;
+  height: 2.5em;
+  aspect-ratio: 1/1;
+  padding: 0.4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer ul#taskbar-app-tray li.focused {
+  background: var(--border);
+  border-radius: 0.25em;
+}
+
+footer ul#taskbar-app-tray li::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 20%;
+  height: 0.25em;
+  border-radius: 0.25em;
+  transform: translateY(50%);
+  background: transparent;
+  transition: width 0.1s ease, background 0.1s ease;
+}
+
+footer ul#taskbar-app-tray li.open::before {
+  background: var(--taskbar-icon-open);
+}
+
+footer ul#taskbar-app-tray li.focused::before {
+  background: var(--taskbar-icon-focused);
+  width: 50%;
 }
 
 footer ul#notification-tray{

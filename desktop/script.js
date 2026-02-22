@@ -250,7 +250,6 @@ desktopContainer.addEventListener("dblclick", (event) => {
 // === WINDOWS MANAGEMENT ===
 // ========================
 const windows = new Map();
-const zIndexBase = 100;
 const desktop = document.getElementById("window-container");
 
 /**
@@ -305,11 +304,31 @@ function openWindow(app) {
   closeBtn.addEventListener("click", () => {
     windows.delete(app.id);
     winEl.remove();
+
+    // Remove taskbar states or the icon itself if not pinned
+    const taskbarIcon = document.querySelector(`#taskbar-app-tray li[data-app-id="${app.id}"]`);
+    if (taskbarIcon) {
+      taskbarIcon.classList.remove("open", "focused");
+      if (!app.pinned) {
+        taskbarIcon.remove();
+      }
+    }
   });
 
   const header = winEl.querySelector("header div:first-child");
   dragElement(winEl, header);
   resizeElement(winEl);
+
+  winEl.addEventListener("mousedown", () => focusWindow(app.id));
+
+  let taskbarIcon = document.querySelector(`#taskbar-app-tray li[data-app-id="${app.id}"]`);
+  if (!taskbarIcon) {
+    appendIconToTaskbar(app);
+    taskbarIcon = document.querySelector(`#taskbar-app-tray li[data-app-id="${app.id}"]`);
+  }
+  if (taskbarIcon) taskbarIcon.classList.add("open");
+
+  focusWindow(app.id);
 }
 
 /**
@@ -318,10 +337,19 @@ function openWindow(app) {
  * @returns void
  * @description Brings the specified window to the front by updating its z-index. The z-index is calculated based on a base value plus the current number of open windows, ensuring that the focused window appears above all others.
  */
+
+let zIndexBase = 100;
+
 function focusWindow(id) {
   const winEl = windows.get(id);
   if (!winEl) return;
-  winEl.style.zIndex = zIndexBase + windows.size;
+
+  zIndexBase++;
+  winEl.style.zIndex = zIndexBase;
+
+  document.querySelectorAll("#taskbar-app-tray li").forEach(li => li.classList.remove("focused"));
+  const taskbarIcon = document.querySelector(`#taskbar-app-tray li[data-app-id="${id}"]`);
+  if (taskbarIcon) taskbarIcon.classList.add("focused");
 }
 
 // ========================
