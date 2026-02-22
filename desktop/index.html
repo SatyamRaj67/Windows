@@ -26,6 +26,7 @@
     <section id="page-transition">
       <span class="spinner"></span>
       <h1>Welcome...</h1>
+      <audio src="../public/Audio/windows_11_startup.mp3" id="startup_audio"></audio>
     </section>
 
     <!-- === DESKTOP SECTION === -->
@@ -34,15 +35,15 @@
         <!-- === DESKTOP GRID === -->
         <!-- It is the first layer that will be behind the desktop container, so anything above will remain above like open apps -->
         <div
-          id="desktop-grid"
-          class="desktop-grid"
+          id="desktop-icon-container"
+          class="desktop-icon-container"
         ></div>
 
-        <!-- === DESKTOP CONTAINER === -->
-        <!-- Contains different desktops above the grid -->
+        <!-- === WINDOW CONTAINER === -->
+        <!-- Contains different windows above the grid -->
         <div
-          id="desktop-container"
-          class="desktop-container"
+          id="window-container"
+          class="window-container"
         ></div>
       </main>
 
@@ -77,16 +78,118 @@
           />
         </div>
       </div>
-
-      <!-- === TASKBAR SECTION === -->
-      <footer>
-        <!-- === TASKBAR APP TRAY === -->
-        <ul
-          class="app-tray"
-          id="taskbar-app-tray"
-        ></ul>
-      </footer>
     </section>
+    <!-- === TASKBAR SECTION === -->
+    <footer>
+      <ul>
+      </ul>
+      <!-- === TASKBAR APP TRAY === -->
+      <ul id="taskbar-app-tray">
+        <li id="start-menu-btn">
+          <img
+            src="../public/windows.svg"
+            alt="Windows Logo"
+          />
+        </li>
+      </ul>
+
+      <ul id="notification-tray">
+        <li class="language">
+          <p>ENG</p>
+          <p>IN</p>
+        </li>
+        <!-- === WIFI SPEAKER BATTERY === -->
+        <li class="wifi-speaker-battery-container">
+          <div class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-wifi-icon lucide-wifi"
+            >
+              <path d="M12 20h.01" />
+              <path d="M2 8.82a15 15 0 0 1 20 0" />
+              <path d="M5 12.859a10 10 0 0 1 14 0" />
+              <path d="M8.5 16.429a5 5 0 0 1 7 0" />
+            </svg>
+          </div>
+
+          <div class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-volume2-icon lucide-volume-2"
+            >
+              <path
+                d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+              />
+              <path d="M16 9a5 5 0 0 1 0 6" />
+              <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+            </svg>
+          </div>
+
+          <div class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-battery-charging-icon lucide-battery-charging"
+            >
+              <path d="m11 7-3 5h4l-3 5" />
+              <path d="M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935" />
+              <path d="M22 14v-4" />
+              <path d="M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936" />
+            </svg>
+          </div>
+        </li>
+
+        <!-- === Date Time === -->
+        <li id="date-time">
+          <div class="date-time-container">
+            <p id="time">2:05 PM</p>
+            <p id="date">2/22/2026</p>
+          </div>
+          <div class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-bell-icon lucide-bell"
+            >
+              <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+              <path
+                d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+              />
+            </svg>
+          </div>
+        </li>
+      </ul>
+    </footer>
   </body>
   <script
     type="module"
