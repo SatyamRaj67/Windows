@@ -74,6 +74,14 @@
     "content": "<p>Why do you want to see other people's messages? <br> <br> You Pervert</p>"
   },
   {
+    "id": "10",
+    "name": "Github",
+    "app": "Github",
+    "img_src": "../public/Github.svg",
+    "grid_area": "2/2",
+    "content": "<iframe src=\"apps/Github\"></iframe>"
+  },
+  {
     "id": "9998",
     "name": "PUZZLE 2.txt",
     "app": "Notepad",

@@ -26,6 +26,13 @@
     padding: 0.5em;
     border: 2px solid var(--border);
     border-radius: 2em;
+    background: var(--background);
+    color: var(--foreground);
+}
+
+.brave .search:focus{
+    outline: none;
+    border-color: var(--accent);
 }
 
 .brave .links button{

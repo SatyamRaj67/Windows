@@ -24,7 +24,7 @@ input.addEventListener("keypress", function (event) {
         const query = input.value;
         const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
-        window.location.href = url;
+        window.open(url, "_blank");
         break;
 
       case "brave":
