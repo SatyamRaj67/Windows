@@ -339,7 +339,6 @@ footer ul#taskbar-app-tray li {
   align-items: center;
 }
 
-
 footer ul#taskbar-app-tray li.focused {
   background: var(--border);
   border-radius: 0.25em;
@@ -359,8 +358,12 @@ footer ul#taskbar-app-tray li::before {
 
 footer ul#taskbar-app-tray li img {
   transform: translateY(0);
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, transform 0.1s ease;
 } 
+
+footer ul#taskbar-app-tray li:active img {
+  transform: scale(0.8);
+}
 
 @starting-style {
   footer ul#taskbar-app-tray li.open img{

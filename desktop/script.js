@@ -412,25 +412,28 @@ taskbar.addEventListener("click", (event) => {
   }
 
   const existingWindow = windows.get(app.id);
-  if (existingWindow) {
-    // === First Check for Focus ===
-    if (!icon.classList.contains("focused")) {
-      focusWindow(app.id);
-      existingWindow.classList.remove("minimized");
-      return;
-    } else {
-      if (existingWindow.classList.contains("minimized")) {
-        existingWindow.classList.remove("minimized");
-        focusWindow(app.id);
-      } else {
-        existingWindow.classList.add("minimized");
-        icon.classList.remove("focused");
-      }
-    }
-  } else {
+
+  if (!existingWindow) {
     openWindow(app);
+    return;
   }
 
+  const isFocused = icon.classList.contains("focused");
+
+  if (!isFocused) {
+    focusWindow(app.id);
+    existingWindow.classList.remove("minimized");
+    return;
+  }
+
+  const isMinimized = existingWindow.classList.contains("minimized");
+
+  if (isMinimized) {
+    existingWindow.classList.remove("minimized");
+  } else {
+    existingWindow.classList.add("minimized");
+    icon.classList.remove("focused");
+  }
 });
 
 // ==========================
