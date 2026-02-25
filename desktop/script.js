@@ -267,6 +267,7 @@ function openWindow(app) {
   // == Create window element
   const winEl = document.createElement("div");
   winEl.classList.add("window");
+  winEl.classList.add("maximized");
   winEl.style.zIndex = zIndexBase + windows.size;
   winEl.innerHTML =
     /* HTML */
@@ -295,6 +296,13 @@ function openWindow(app) {
 
   minimizeBtn.addEventListener("click", () => {
     winEl.classList.toggle("minimized");
+
+    // Update taskbar icon state
+    const taskbarIcon = document.querySelector(`#taskbar-app-tray li[data-app-id="${app.id}"]`);
+
+    if (winEl.classList.contains("minimized")) {
+      taskbarIcon.classList.remove("focused");
+    }
   });
 
   maximizeBtn.addEventListener("click", () => {
@@ -402,7 +410,27 @@ taskbar.addEventListener("click", (event) => {
     console.warn(`App with id ${appId} not found in Installed_Apps`);
     return;
   }
-  openWindow(app);
+
+  const existingWindow = windows.get(app.id);
+  if (existingWindow) {
+    // === First Check for Focus ===
+    if (!icon.classList.contains("focused")) {
+      focusWindow(app.id);
+      existingWindow.classList.remove("minimized");
+      return;
+    } else {
+      if (existingWindow.classList.contains("minimized")) {
+        existingWindow.classList.remove("minimized");
+        focusWindow(app.id);
+      } else {
+        existingWindow.classList.add("minimized");
+        icon.classList.remove("focused");
+      }
+    }
+  } else {
+    openWindow(app);
+  }
+
 });
 
 // ==========================
