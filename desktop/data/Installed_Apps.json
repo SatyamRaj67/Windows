@@ -82,6 +82,22 @@
     "content": "<iframe src=\"apps/Github\"></iframe>"
   },
   {
+    "id": "11",
+    "name": "Carnival",
+    "app": "Carnival",
+    "img_src": "../public/carnival.png",
+    "grid_area": "2/3",
+    "content": "<iframe src=\"apps/Carnival\"></iframe>"
+  },
+  {
+    "id": "12",
+    "name": "Music Player",
+    "app": "Music_Player",
+    "img_src": "../public/music.png",
+    "grid_area": "1/5",
+    "content": "<iframe src=\"https://satyamraj67.github.io/HTML-Projects/Extension/\"></iframe>"
+  },
+  {
     "id": "9998",
     "name": "PUZZLE 2.txt",
     "app": "Notepad",
