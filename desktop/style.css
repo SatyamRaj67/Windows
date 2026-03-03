@@ -517,16 +517,54 @@ body>footer ul li#date-time p {
   align-items: center;
 }
 
+.notification-menu .card main.notification-calendar {
+  background: var(--notification-content-background);
+}
+
+
 .notification-menu .card main.notification-calendar .notification-calendar-header {
-  padding: 0.5em 1em;
+  padding: 0.5em;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1em;
 }
 
 .notification-menu .card main.notification-calendar.collapsed .notification-calendar-header {
   height: 0;
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header p{
+  flex: 1;
+  padding: 0.25em;
+  padding-left: 0.5em;
+  border-radius: 0.25em;
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header p:hover {
+  background: var(--border);
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls{
+  display: flex;
+  gap: 0.25em;
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.25em;
+  border-radius: 0.25em;
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon:hover{
+  background: var(--border);
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon svg{
+  transform: scale(0.5);
 }
 
 .notification-menu .card:has(main.notification-calendar.collapsed) header #notification-calendar-toggle svg{
