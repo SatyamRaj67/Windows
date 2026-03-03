@@ -53,7 +53,7 @@ section#page-transition {
   transform: translateY(-100%);
 }
 
-main {
+body>main {
   width: 100vw;
   height: calc(100vh - 3em);
 }
@@ -192,8 +192,8 @@ main {
   transform: translateY(0) scale(1);
 }
 
-@starting-style{
-  .window{
+@starting-style {
+  .window {
     transform: translateY(100vh) scale(0);
   }
 }
@@ -271,7 +271,7 @@ main {
 /* ================== */
 /* === TASKBAR  STYLES === */
 /* ================== */
-footer {
+body>footer {
   position: fixed;
   border-top: 1px solid var(--border);
   backdrop-filter: blur(2em) brightness(0.2);
@@ -285,11 +285,11 @@ footer {
   transition-delay: 0.2s;
 }
 
-.loaded footer {
+body.loaded>footer {
   transform: translateY(0);
 }
 
-footer ul {
+body>footer ul {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -299,18 +299,18 @@ footer ul {
 }
 
 
-footer ul li:hover {
+body>footer ul li:hover {
   background: var(--border);
   border-radius: 0.25em;
 }
 
-footer ul li img {
+body>footer ul li img {
   width: 100%;
   height: auto;
   transition: transform 0.1s ease;
 }
 
-footer ul li .icon {
+body>footer ul li .icon {
   height: 1.5em;
   width: auto;
   display: flex;
@@ -318,18 +318,18 @@ footer ul li .icon {
   align-items: center;
 }
 
-footer ul li .icon svg {
+body>footer ul li .icon svg {
   height: 1.25em;
   width: auto;
 }
 
-footer ul#notification-tray {
+body>footer ul#notification-tray {
   justify-content: right;
   margin-right: 1em;
   gap: 0.1em;
 }
 
-footer ul#taskbar-app-tray li {
+body>footer ul#taskbar-app-tray li {
   position: relative;
   height: 2.5em;
   aspect-ratio: 1/1;
@@ -339,12 +339,12 @@ footer ul#taskbar-app-tray li {
   align-items: center;
 }
 
-footer ul#taskbar-app-tray li.focused {
+body>footer ul#taskbar-app-tray li.focused {
   background: var(--border);
   border-radius: 0.25em;
 }
 
-footer ul#taskbar-app-tray li::before {
+body>footer ul#taskbar-app-tray li::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -356,31 +356,31 @@ footer ul#taskbar-app-tray li::before {
   transition: all 0.3s ease;
 }
 
-footer ul#taskbar-app-tray li img {
+body>footer ul#taskbar-app-tray li img {
   transform: translateY(0);
   transition: all 0.3s ease, transform 0.1s ease;
-} 
+}
 
-footer ul#taskbar-app-tray li:active img {
+body>footer ul#taskbar-app-tray li:active img {
   transform: scale(0.8);
 }
 
 @starting-style {
-  footer ul#taskbar-app-tray li.open img{
+  body footer ul#taskbar-app-tray li.open img {
     transform: translateY(-10%);
   }
 }
 
-footer ul#taskbar-app-tray li.open::before {
+body>footer ul#taskbar-app-tray li.open::before {
   background: var(--taskbar-icon-open);
 }
 
-footer ul#taskbar-app-tray li.focused::before {
+body>footer ul#taskbar-app-tray li.focused::before {
   background: var(--taskbar-icon-focused);
   width: 50%;
 }
 
-footer ul#notification-tray li.language {
+body>footer ul#notification-tray li.language {
   padding: 0.5em;
   font-size: 0.75em;
   letter-spacing: 0.05em;
@@ -388,20 +388,20 @@ footer ul#notification-tray li.language {
   text-align: center;
 }
 
-footer ul#notification-tray li.wifi-speaker-battery-container {
+body>footer ul#notification-tray li.wifi-speaker-battery-container {
   display: flex;
   gap: 0.35em;
   padding: 0.5em;
   height: 100%;
 }
 
-footer ul li#date-time {
+body>footer ul li#date-time {
   display: flex;
   padding: 0.25em 0.5em;
   gap: 0.5em;
 }
 
-footer ul li#date-time p {
+body>footer ul li#date-time p {
   font-size: 0.75em;
   display: block;
   line-height: 1.2em;
@@ -463,7 +463,9 @@ footer ul li#date-time p {
   padding: 1em;
   transform: translateX(100%);
   display: flex;
-  flex-direction: column-reverse;
+  justify-content: flex-end;
+  flex-direction: column;
+  transition: transform 0.25s ease;
 }
 
 .notification-menu.visible {
@@ -471,13 +473,13 @@ footer ul li#date-time p {
 }
 
 .notification-menu .card {
-  background: var(--card);
+  background: var(--notification-background);
   border-radius: 0.5em;
   margin-bottom: 1em;
   border: 1px solid var(--border);
 }
 
-.notification-menu .card header{
+.notification-menu .card header {
   width: 100%;
   padding: 0.5em 1em;
   display: flex;
@@ -491,7 +493,7 @@ footer ul li#date-time p {
   gap: 0.5em;
 }
 
-.notification-menu .card header .icon{
+.notification-menu .card header .icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -503,8 +505,32 @@ footer ul li#date-time p {
 }
 
 .notification-menu .card header .icon svg {
-  height: 1em; 
+  height: 1em;
   width: auto;
+}
+
+.notification-menu .card footer {
+  padding: 0.5em 1em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-menu .card main.notification-calendar .notification-calendar-header {
+  padding: 0.5em 1em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-menu .card main.notification-calendar.collapsed .notification-calendar-header {
+  height: 0;
+}
+
+.notification-menu .card:has(main.notification-calendar.collapsed) header #notification-calendar-toggle svg{
+  transform: rotate(180deg);
 }
 
 /* ================ */

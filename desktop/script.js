@@ -11,39 +11,6 @@ window.addEventListener("load", () => {
   }
 });
 
-// =====================
-// ===    UI WORKINGS          ===
-// =====================
-
-// == Time Display ==
-const timeEl = document.getElementById("time");
-
-function updateTime() {
-  // Get current time and format it as HH:MM AM/PM
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const formattedHours = hours % 12 || 12;
-  timeEl.textContent = `${formattedHours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
-}
-
-updateTime();
-setInterval(updateTime, 1000);
-
-// == Date Display ==
-const dateEl = document.getElementById("date");
-
-function updateDate() {
-  // Get current date and format it as MM/DD/YYYY
-  const now = new Date();
-  const month = (now.getMonth() + 1).toString();
-  const day = now.getDate().toString();
-  const year = now.getFullYear();
-  dateEl.textContent = `${month}/${day}/${year}`;
-}
-updateDate();
-
 // ====================
 // ===   HELPER FUNCTION ===
 // ====================
@@ -173,6 +140,40 @@ const Installed_Apps = await loadJSON("data/Installed_Apps.json");
 if (Installed_Apps.length === 0) {
   console.warn("No installed apps loaded - desktop and taskbar will be empty");
 }
+
+
+// =====================
+// ===    UI WORKINGS          ===
+// =====================
+
+// == Time Display ==
+const timeEl = document.getElementById("time");
+
+function updateTime() {
+  // Get current time and format it as HH:MM AM/PM
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  timeEl.textContent = `${formattedHours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+
+// == Date Display ==
+const dateEl = document.getElementById("date");
+
+function updateDate() {
+  // Get current date and format it as MM/DD/YYYY
+  const now = new Date();
+  const month = (now.getMonth() + 1).toString();
+  const day = now.getDate().toString();
+  const year = now.getFullYear();
+  dateEl.textContent = `${month}/${day}/${year}`;
+}
+updateDate();
 
 // ========================
 // === DESKTOP MANAGEMENT   ===
@@ -449,9 +450,22 @@ startMenuBtn.addEventListener("click", () => {
 // ============================
 // === NOTIFICATION MENU                   ===
 // ============================
+
+// === Event Listener for Notification Menu ===
 const notificationMenuBtn = document.getElementById("date-time");
 const notificationMenu = document.getElementById("notification-menu");
-
 notificationMenuBtn.addEventListener("click", () => {
   notificationMenu.classList.toggle("visible");
 });
+
+// === Notification Date Display ===
+const notificationDate = document.getElementById("notification-date");
+notificationDate.textContent = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+
+// === Toggle Calendar View in Notification Menu ===
+const notificationCalendarToggle = document.getElementById("notification-calendar-toggle");
+
+notificationCalendarToggle.addEventListener("click", () => {
+  const notificationCalendar = document.getElementById("notification-calendar");
+  notificationCalendar.classList.toggle("collapsed");
+})
