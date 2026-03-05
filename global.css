@@ -45,8 +45,8 @@
   --window-radius: 0.5em;
 
   /* === Notification === */
-  --notification-background: oklch(20.463% 0.00002 271.152 / 0.9);
-  --notification-content-background: oklch(0.205 0 0/ 0.7);
+  --notification-background: oklch(20.463% 0.00002 271.152);
+  --notification-content-background: oklch(0.205 0 0/ 0.9);
 }
 
 /* ================== */

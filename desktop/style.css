@@ -215,7 +215,7 @@ body>main {
 }
 
 .window header {
-  height: var(--window-header-height);
+  height: var(--window-height);
   width: 100%;
   display: flex;
   background: var(--window-header-background);
@@ -485,6 +485,7 @@ body>footer ul li#date-time p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--border);
 }
 
 .notification-menu .card header div {
@@ -515,15 +516,26 @@ body>footer ul li#date-time p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid var(--border);
 }
 
-.notification-menu .card main.notification-calendar {
+main.notification-calendar {
   background: var(--notification-content-background);
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease-in-out;
 }
 
+main.notification-calendar.collapsed {
+  grid-template-rows: 0fr;
+}
 
-.notification-menu .card main.notification-calendar .notification-calendar-header {
-  padding: 0.5em;
+main.notification-calendar>div {
+  overflow: hidden;
+}
+
+main.notification-calendar .notification-calendar-header {
+  padding: 0.5em 0.5em;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -531,27 +543,23 @@ body>footer ul li#date-time p {
   gap: 1em;
 }
 
-.notification-menu .card main.notification-calendar.collapsed .notification-calendar-header {
-  height: 0;
-}
-
-.notification-menu .card main.notification-calendar .notification-calendar-header p{
+main.notification-calendar .notification-calendar-header p {
   flex: 1;
   padding: 0.25em;
   padding-left: 0.5em;
   border-radius: 0.25em;
 }
 
-.notification-menu .card main.notification-calendar .notification-calendar-header p:hover {
+main.notification-calendar .notification-calendar-header p:hover {
   background: var(--border);
 }
 
-.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls{
+main.notification-calendar .notification-calendar-month-controls {
   display: flex;
   gap: 0.25em;
 }
 
-.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon{
+main.notification-calendar .notification-calendar-month-controls .icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -559,16 +567,63 @@ body>footer ul li#date-time p {
   border-radius: 0.25em;
 }
 
-.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon:hover{
+main.notification-calendar .notification-calendar-month-controls .icon:hover {
   background: var(--border);
 }
 
-.notification-menu .card main.notification-calendar .notification-calendar-header .notification-calendar-month-controls .icon svg{
+main.notification-calendar .notification-calendar-month-controls .icon svg {
   transform: scale(0.5);
 }
 
-.notification-menu .card:has(main.notification-calendar.collapsed) header #notification-calendar-toggle svg{
-  transform: rotate(180deg);
+.card:has(main.notification-calendar.collapsed) #notification-calendar-toggle svg {
+  transform: rotate(-180deg);
+}
+
+main.notification-calendar .notification-calendar-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+main.notification-calendar .notification-calendar-main>div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  place-items: center;
+  padding: 0 0.5em;
+}
+
+main.notification-calendar .notification-calendar-main p {
+  font-size: 0.85em;
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+}
+
+main.notification-calendar .notification-calendar-main-dates p{
+  color: var(--border-active);
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: all 0s;
+}
+
+main.notification-calendar .notification-calendar-main-dates p:hover{
+  background: var(--border);
+  color: var(--foreground);
+  border: 1px solid var(--border-active);
+}
+
+main.notification-calendar .notification-calendar-main-dates p.active{
+  color: var(--foreground);
+}
+
+main.notification-calendar .notification-calendar-main-dates p.today{
+  background: var(--blue);
+  color: var(--background);
+  border: 1px solid var(--border);
 }
 
 /* ================ */

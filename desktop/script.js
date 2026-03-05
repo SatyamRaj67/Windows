@@ -469,3 +469,61 @@ notificationCalendarToggle.addEventListener("click", () => {
   const notificationCalendar = document.getElementById("notification-calendar");
   notificationCalendar.classList.toggle("collapsed");
 })
+
+// === Notification Calendar Month Display ===
+const noticationCalendarMonth = document.getElementById("notification-calendar-month");
+function updateCalendarMonth() {
+  const now = new Date();
+  const month = now.toLocaleString(undefined, { month: "long" });
+  const year = now.getFullYear();
+  noticationCalendarMonth.textContent = `${month} ${year}`;
+}
+updateCalendarMonth();
+
+// === Populate Dates in Calendar ===
+const notificationCalendarMainDates = document.getElementById("notification-calendar-main-dates");
+
+function renderCalendar() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-11
+  const today = now.getDate();
+
+  // Get days in current and previous months
+  const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+  // Get the day of the week for the 1st of the month (0 = Sunday, 6 = Saturday)
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+
+  notificationCalendarMainDates.innerHTML = "";
+
+  const fragment = document.createDocumentFragment();
+  const totalCells = 42;
+
+  for (let i = 0; i < totalCells; i++) {
+    const dateCell = document.createElement("p");
+
+    if (i < firstDayOfWeek) {
+      dateCell.textContent = daysInPrevMonth - firstDayOfWeek + i + 1;
+    } else if (i >= firstDayOfWeek && i < firstDayOfWeek + daysInCurrentMonth) {
+      // Current month dates
+      const dateNum = i - firstDayOfWeek + 1;
+      dateCell.textContent = dateNum;
+      dateCell.classList.add("active");
+
+      if (dateNum === today) {
+        dateCell.classList.add("today");
+      }
+    } else {
+      // Next month dates
+      dateCell.textContent = i - (firstDayOfWeek + daysInCurrentMonth) + 1;
+    }
+
+    fragment.appendChild(dateCell);
+  }
+
+  notificationCalendarMainDates.appendChild(fragment);
+}
+
+renderCalendar();
